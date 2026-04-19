@@ -1,2 +1,0 @@
-# Ordeniapp
-Deuda en Silencio

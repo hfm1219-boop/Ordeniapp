@@ -1,0 +1,5763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ORDENI — Un espacio para la verdad · V3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ====== PALETA CÁLIDA Y HUMANA ====== */
+  /* Bases */
+  --paper: #f7f1e6;          /* crema cálida (fondo de app) */
+  --paper-deep: #efe6d4;     /* crema más saturada */
+  --card: #ffffff;           /* blanco limpio para cards principales */
+  --card-warm: #fdf9f1;      /* blanco con tinte cálido */
+
+  /* Tinta (texto) — marrón oscuro cálido, no negro puro */
+  --ink: #2b2420;
+  --ink-soft: #3d342e;
+  --ash: #4a403a;
+  --muted: #8b7f73;
+
+  /* Acentos cálidos */
+  --accent: #c87656;         /* terracota (reemplaza al dorado) */
+  --accent-deep: #a4583c;    /* terracota profunda (hover/énfasis) */
+  --accent-soft: #f0d9cc;    /* terracota translúcida (fondos suaves) */
+
+  /* Verde salvia para confianza / éxito */
+  --sage: #7a9278;
+  --sage-deep: #5a7c5f;
+  --sage-soft: #e4ebe2;
+
+  /* Amarillo de marca (logo ORDENI) — único lugar donde aparece */
+  --brand-yellow: #f5c842;
+
+  /* Estados */
+  --red: #b85a47;            /* rojo quemado cálido (no rojo puro agresivo) */
+  --red-soft: #f4dfd8;
+  --green: #5a7c5f;          /* igual que sage-deep, para consistencia */
+
+  /* Bordes */
+  --border: #e8dfd0;
+  --border-soft: #f0e8d6;
+
+  /* Sombras suaves */
+  --shadow-sm: 0 1px 2px rgba(43,36,32,0.04), 0 2px 8px rgba(43,36,32,0.03);
+  --shadow-md: 0 2px 4px rgba(43,36,32,0.05), 0 8px 24px rgba(43,36,32,0.06);
+  --shadow-lg: 0 8px 32px rgba(43,36,32,0.08);
+  --shadow-modal: 0 20px 60px rgba(43,36,32,0.22);
+
+  /* Radios */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-pill: 100px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body { min-height: 100vh; }
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--paper);
+  position: relative;
+  overflow-x: hidden;
+  box-shadow: 0 0 40px rgba(43,36,32,0.06);
+}
+.screen { padding: 40px 28px 80px; min-height: 100vh; }
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  display: block;
+}
+.mono { font-family: 'DM Mono', monospace; }
+
+/* ============================================================ */
+/* WELCOME — ahora claro y acogedor, no oscuro y editorial       */
+/* ============================================================ */
+.welcome {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 72px 32px 40px;
+  background:
+    radial-gradient(circle at 85% 15%, var(--accent-soft) 0%, transparent 55%),
+    radial-gradient(circle at 15% 85%, var(--sage-soft) 0%, transparent 50%),
+    var(--paper);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.welcome::before { display: none; } /* quitamos el patrón editorial rayado */
+.welcome-inner { position: relative; z-index: 1; }
+.welcome-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--accent-deep);
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+.welcome h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 1.05;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.welcome h1 em {
+  font-style: italic;
+  color: var(--accent-deep);
+  font-weight: 400;
+}
+.welcome-body {
+  font-size: 16px;
+  color: var(--ash);
+  margin-top: 28px;
+  line-height: 1.75;
+  max-width: 340px;
+}
+.welcome-cta {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 18px 32px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  border-radius: var(--r-pill);
+  width: 100%;
+  margin-top: 32px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+.welcome-cta:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.welcome-footer {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ============================================================ */
+/* ONBOARDING / FORMS                                            */
+/* ============================================================ */
+.nav-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.back-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+.back-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  transform: translateX(-2px);
+}
+.progress { display: flex; gap: 6px; flex: 1; }
+.progress-step {
+  height: 4px;
+  flex: 1;
+  background: var(--border);
+  border-radius: var(--r-pill);
+  transition: background 0.3s ease;
+}
+.progress-step.active { background: var(--accent); }
+.progress-step.done { background: var(--sage); }
+
+.form-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.form-subtitle {
+  font-size: 15px;
+  color: var(--ash);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+.field { margin-bottom: 22px; }
+.field-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink);
+  text-transform: none;
+  margin-bottom: 8px;
+  display: block;
+}
+.field-input {
+  width: 100%;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  padding: 15px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ink);
+  border-radius: var(--r-md);
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field-input::placeholder { color: var(--muted); opacity: 0.7; }
+.field-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.field-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 7px;
+  line-height: 1.55;
+}
+
+.field-select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath d='M1 1l5 5 5-5' stroke='%238b7f73' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+/* Category pill (en tarjeta de deuda) */
+.category-pill {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.debt-card.paid .category-pill {
+  opacity: 0.5;
+  background: var(--border-soft);
+  color: var(--muted);
+}
+
+/* Category breakdown (dashboard) */
+.breakdown-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-label {
+  flex-shrink: 0;
+  min-width: 100px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ash);
+}
+.breakdown-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: var(--border-soft);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.breakdown-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius: var(--r-pill);
+}
+.breakdown-amount {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+  min-width: 90px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================ */
+/* V2: Simulator                                                 */
+/* ============================================================ */
+.sim-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  padding: 4px;
+  border-radius: var(--r-pill);
+  background: var(--paper-deep);
+}
+.sim-tab {
+  flex: 1;
+  padding: 11px 10px;
+  background: transparent;
+  border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: var(--r-pill);
+}
+.sim-tab:hover { color: var(--ink); }
+.sim-tab.active {
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+.sim-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.sim-result {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 24px 22px;
+  border-radius: var(--r-lg);
+  margin-bottom: 4px;
+  box-shadow: var(--shadow-md);
+}
+.sim-result.error {
+  background: var(--red-soft);
+  border: 1px solid rgba(184,90,71,0.3);
+  color: var(--ink);
+  box-shadow: none;
+}
+.sim-result-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.sim-result-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.sim-result.error .sim-result-title { color: var(--red); }
+.sim-result.error .sim-result-body { color: var(--ash); }
+.sim-delta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.sim-delta { text-align: left; }
+.sim-delta-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(247,241,230,0.55);
+  margin-bottom: 8px;
+}
+.sim-delta-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--paper);
+  letter-spacing: -0.015em;
+}
+.sim-delta-val.positive { color: var(--accent); }
+.sim-delta-sub {
+  font-size: 11px;
+  color: rgba(247,241,230,0.4);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-top: 4px;
+}
+.sim-note {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(247,241,230,0.12);
+  font-size: 12px;
+  color: rgba(247,241,230,0.55);
+}
+
+/* ============================================================ */
+/* V2: Negotiation scripts                                       */
+/* ============================================================ */
+.script-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+  scrollbar-width: none;
+}
+.script-tabs::-webkit-scrollbar { display: none; }
+.script-tab {
+  flex-shrink: 0;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 10px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ash);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.script-tab:hover { color: var(--ink); border-color: var(--ink); }
+.script-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.script-when {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 18px;
+  line-height: 1.65;
+  font-family: 'Fraunces', Georgia, serif;
+}
+.script-body {
+  background: var(--card-warm);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: 24px 26px;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ash);
+  margin-bottom: 14px;
+  white-space: normal;
+  box-shadow: var(--shadow-sm);
+}
+.script-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.script-tips {
+  background: var(--sage-soft);
+  border-radius: var(--r-md);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.script-tips-head {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--sage-deep);
+  margin-bottom: 12px;
+}
+.script-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.script-tips li {
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.7;
+  padding: 6px 0 6px 20px;
+  position: relative;
+}
+.script-tips li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 8px;
+  height: 2px;
+  background: var(--sage-deep);
+  border-radius: 1px;
+}
+.script-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ============================================================ */
+/* V2: Tips contextuales                                         */
+/* ============================================================ */
+.tip-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+.tip-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.tip-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tip-card-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.tip-card-body {
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.tip-dismiss {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 8px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.tip-dismiss:hover { opacity: 1; background: var(--paper-deep); }
+.tip-cta {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent-deep);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.tip-cta:hover { color: var(--ink); }
+
+/* ============================================================ */
+/* V2: Enhanced strategy card                                    */
+/* ============================================================ */
+.strategy-why {
+  font-size: 13.5px;
+  color: var(--ash);
+  line-height: 1.75;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+.strategy-why strong { color: var(--ink); font-weight: 600; }
+
+/* ============================================================ */
+/* V2: Copy toast                                                */
+/* ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 200;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================ */
+/* BOTONES                                                       */
+/* ============================================================ */
+.btn {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 16px 26px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  cursor: pointer;
+  border-radius: var(--r-pill);
+  width: 100%;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover:not(:disabled) {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-secondary {
+  background: var(--card);
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--card);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.btn-danger {
+  background: var(--red);
+}
+.btn-danger:hover:not(:disabled) {
+  background: #a04c3c;
+}
+.btn-ghost {
+  background: none;
+  color: var(--muted);
+  border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--border);
+  width: 100%;
+  box-shadow: none;
+  border-radius: var(--r-pill);
+}
+.btn-ghost:hover { color: var(--ink); text-decoration-color: var(--accent); }
+.btn-row { display: flex; gap: 10px; }
+.btn-row .btn { flex: 1; }
+.stack > * + * { margin-top: 10px; }
+
+/* ============================================================ */
+/* PIN                                                           */
+/* ============================================================ */
+.pin-display {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 48px 0 40px;
+}
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: transparent;
+  transition: all 0.15s ease;
+}
+.pin-dot.filled {
+  background: var(--ink);
+  transform: scale(1.15);
+}
+.pin-dot.error {
+  border-color: var(--red);
+  background: var(--red);
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 280px;
+  margin: 0 auto;
+}
+.pin-key {
+  background: var(--card);
+  border: 1px solid var(--border);
+  height: 62px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--r-md);
+  transition: all 0.12s ease;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.pin-key:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+.pin-key:active { transform: scale(0.96); }
+.pin-key.fn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.pin-key.fn:hover { background: transparent; color: var(--ink); transform: none; }
+.pin-error-msg {
+  text-align: center;
+  color: var(--red);
+  font-size: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 16px;
+  height: 16px;
+}
+
+/* ============================================================ */
+/* DASHBOARD                                                     */
+/* ============================================================ */
+.dash-header {
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.dash-greet {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 2px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.dash-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 26px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.icon-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--ash);
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+.icon-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  transform: rotate(20deg);
+}
+
+/* Reality card — sigue siendo oscura para marcar "el número",
+   pero con ink cálido (no negro puro) y bordes redondeados */
+.reality-card {
+  background: linear-gradient(145deg, var(--ink) 0%, var(--ink-soft) 100%);
+  color: var(--paper);
+  padding: 34px 30px;
+  border-radius: var(--r-xl);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.reality-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.reality-inner { position: relative; z-index: 1; }
+.reality-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--accent-soft);
+  text-transform: none;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+.reality-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.reality-meta {
+  display: flex;
+  gap: 20px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(247,241,230,0.15);
+  margin-top: 24px;
+}
+.reality-meta-item { flex: 1; }
+.reality-meta-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(247,241,230,0.55);
+  text-transform: none;
+  margin-bottom: 5px;
+}
+.reality-meta-val {
+  font-size: 14px;
+  color: var(--paper);
+  font-weight: 500;
+}
+
+.strategy-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  border-radius: var(--r-lg);
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.strategy-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.strategy-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.strategy-toggle {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  padding: 7px 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  cursor: pointer;
+  color: var(--ash);
+  border-radius: var(--r-pill);
+  text-transform: none;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.strategy-toggle:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.strategy-body {
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.7;
+}
+
+/* Currency grid (onboarding) */
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.currency-opt {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 16px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
+}
+.currency-opt:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.currency-opt.active {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.currency-opt.active .currency-code { color: var(--accent-soft); }
+.currency-opt.active .currency-name { color: rgba(247,241,230,0.7); }
+.currency-code {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.currency-name {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* Currency pills (debt form) */
+.currency-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+  scrollbar-width: none;
+}
+.currency-pills::-webkit-scrollbar { display: none; }
+.currency-pill {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 8px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ash);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.currency-pill:hover { color: var(--ink); border-color: var(--ink); }
+.currency-pill.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Conversion preview */
+.conversion-preview {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: 0;
+}
+.conversion-preview.warn {
+  color: var(--red);
+}
+
+/* Rate indicator */
+.rate-indicator {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-transform: none;
+  opacity: 0.8;
+}
+
+/* Debt card secondary amount (when foreign currency) */
+.debt-amount-alt {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  margin-top: 3px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+  margin-top: 32px;
+}
+.section-heading h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.section-count {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-transform: none;
+}
+
+.debt-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 20px 22px;
+  border-radius: var(--r-lg);
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.debt-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.debt-card.paid {
+  opacity: 0.65;
+  cursor: default;
+  background: var(--card-warm);
+}
+.debt-card.paid:hover {
+  border-color: var(--border);
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+.debt-card.priority {
+  border-color: var(--accent);
+  border-left: 4px solid var(--accent);
+  background: var(--card);
+}
+.debt-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.debt-creditor {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.priority-tag {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  margin-left: 8px;
+  background: var(--accent-soft);
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+}
+.debt-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  color: var(--muted);
+  letter-spacing: 0;
+  margin-top: 5px;
+  text-transform: none;
+}
+.debt-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.debt-meta {
+  display: flex;
+  gap: 18px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.debt-meta strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.debt-warn {
+  background: var(--red-soft);
+  color: var(--red);
+  padding: 9px 14px;
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  margin-top: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+.action-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.empty {
+  text-align: center;
+  padding: 44px 24px;
+  background: var(--card-warm);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-lg);
+  margin-top: 16px;
+}
+.empty-mark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 56px;
+  font-style: italic;
+  color: var(--accent-soft);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.empty-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.empty-body {
+  font-size: 14px;
+  color: var(--ash);
+  margin-bottom: 22px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* ============================================================ */
+/* PLAN                                                          */
+/* ============================================================ */
+.week-total {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px 26px;
+  border-radius: var(--r-lg);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.plan-day {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.plan-day:last-child { border-bottom: none; }
+.plan-day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.plan-date {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.plan-date-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-transform: none;
+}
+.plan-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 14.5px;
+  align-items: center;
+}
+.plan-item-name { color: var(--ash); }
+.plan-item-amount {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.note-card {
+  background: var(--sage-soft);
+  border-left: 3px solid var(--sage);
+  padding: 20px 22px;
+  border-radius: var(--r-md);
+  margin-top: 24px;
+}
+.note-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.note-body {
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.7;
+}
+.note-body strong { color: var(--ink); font-weight: 600; }
+
+/* ============================================================ */
+/* SETTINGS                                                      */
+/* ============================================================ */
+.settings-list {
+  margin-top: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.settings-item:hover { background: var(--card-warm); }
+.settings-item:last-child { border-bottom: none; }
+.settings-label {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.settings-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.settings-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ============================================================ */
+/* MODAL                                                         */
+/* ============================================================ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43,36,32,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadein 0.25s ease;
+}
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--paper);
+  padding: 32px 28px;
+  border-radius: var(--r-xl);
+  max-width: 400px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideup 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: var(--shadow-modal);
+}
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+@keyframes slideup {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.modal-body {
+  font-size: 14.5px;
+  color: var(--ash);
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+
+/* Modal option list (for currency/strategy selectors with many items) */
+.modal-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--card);
+}
+.modal-option-list button {
+  background: var(--card);
+  border: none;
+  border-bottom: 1px solid var(--border-soft);
+  padding: 14px 18px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.modal-option-list button:last-child { border-bottom: none; }
+.modal-option-list button:hover { background: var(--accent-soft); }
+.modal-option-list button.current {
+  background: var(--ink);
+  color: var(--paper);
+}
+.modal-option-list button.current::after {
+  content: '✓';
+  float: right;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================================ */
+/* MILESTONE — también cálida                                    */
+/* ============================================================ */
+.milestone-card {
+  background: linear-gradient(145deg, var(--ink) 0%, var(--ink-soft) 100%);
+  color: var(--paper);
+  padding: 34px 30px;
+  border-radius: var(--r-xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.milestone-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.milestone-tag {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  position: relative;
+}
+.milestone-msg {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--paper);
+  position: relative;
+  letter-spacing: -0.015em;
+}
+.milestone-sub {
+  font-size: 13.5px;
+  color: rgba(247,241,230,0.7);
+  margin-top: 14px;
+  position: relative;
+}
+
+/* ============================================================ */
+/* UTILITIES                                                     */
+/* ============================================================ */
+.fade-in { animation: fadein 0.35s ease; }
+.mt-sm { margin-top: 10px !important; }
+.mt-md { margin-top: 20px !important; }
+.mt-lg { margin-top: 32px !important; }
+.mt-xl { margin-top: 48px !important; }
+.text-center { text-align: center; }
+.text-muted { color: var(--muted); }
+
+/* ============================================================ */
+/* PROGRESS INDICATORS                                           */
+/* ============================================================ */
+
+/* Progreso global dentro del reality-card */
+.reality-progress {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(247,241,230,0.15);
+}
+.reality-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.reality-progress-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(247,241,230,0.7);
+}
+.reality-progress-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent-soft);
+  font-variant-numeric: tabular-nums;
+}
+.reality-progress-bar {
+  height: 6px;
+  background: rgba(247,241,230,0.1);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.reality-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #f0c9a8 100%);
+  border-radius: var(--r-pill);
+  transition: width 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* Progreso por deuda (mini barra en debt-card) */
+.debt-progress {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.debt-progress-bar {
+  height: 4px;
+  background: var(--border-soft);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+.debt-progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--r-pill);
+  transition: width 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.debt-progress-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--accent-deep);
+  letter-spacing: 0;
+}
+
+/* Variante milestone del modal — sin chrome del modal normal,
+   deja que milestone-card sea el protagonista */
+.milestone-modal {
+  background: transparent !important;
+  padding: 0 !important;
+  max-width: 400px;
+  box-shadow: none !important;
+  overflow: visible;
+}
+.milestone-confirm {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  margin-top: 28px;
+  box-shadow: var(--shadow-md) !important;
+  position: relative;
+  z-index: 2;
+}
+.milestone-confirm:hover {
+  background: var(--card) !important;
+  color: var(--ink) !important;
+  transform: translateY(-2px);
+}
+
+/* ============================================================ */
+/* REPORTE EXPORTABLE                                            */
+/* ============================================================ */
+.report-screen {
+  /* En pantalla hereda el padding del .screen normal */
+}
+
+.report-header {
+  margin-bottom: 28px;
+}
+.report-meta {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Tarjeta resumen (hero del reporte) — variante de reality-card */
+.report-summary {
+  background: linear-gradient(145deg, var(--ink) 0%, var(--ink-soft) 100%);
+  color: var(--paper);
+  padding: 30px 28px;
+  border-radius: var(--r-xl);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.report-summary::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -15%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.report-summary-inner { position: relative; z-index: 1; }
+.report-summary-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-soft);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+.report-summary-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.report-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+  padding-top: 22px;
+  margin-top: 22px;
+  border-top: 1px solid rgba(247,241,230,0.15);
+}
+.report-summary-cell .label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(247,241,230,0.55);
+  margin-bottom: 4px;
+}
+.report-summary-cell .value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: var(--paper);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Secciones del reporte */
+.report-section {
+  margin-bottom: 28px;
+}
+.report-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+.report-section h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+
+/* Progreso global del reporte */
+.report-progress-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+.report-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+.report-progress-label-big {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.report-progress-pct {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--accent-deep);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.report-progress-big-bar {
+  height: 8px;
+  background: var(--border-soft);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.report-progress-big-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius: var(--r-pill);
+}
+.report-progress-sub {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Hitos del reporte */
+.report-milestones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.report-milestone {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+.report-milestone-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.report-milestone-content { flex: 1; }
+.report-milestone-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.report-milestone-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Lista de deudas activas del reporte (más compacto que debt-card) */
+.report-debt {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+}
+.report-debt-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.report-debt-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.report-debt-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.report-debt-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.report-debt-bar {
+  height: 4px;
+  background: var(--border-soft);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  margin-top: 12px;
+}
+.report-debt-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--r-pill);
+}
+
+/* Timeline de deudas cerradas */
+.report-timeline {
+  position: relative;
+  padding-left: 24px;
+}
+.report-timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+.report-timeline-item {
+  position: relative;
+  padding: 6px 0 18px 0;
+}
+.report-timeline-item:last-child {
+  padding-bottom: 0;
+}
+.report-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sage);
+  border: 3px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--sage);
+}
+.report-timeline-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.report-timeline-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.report-timeline-amount {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sage-deep);
+  background: var(--sage-soft);
+  padding: 2px 9px;
+  border-radius: var(--r-pill);
+  margin-left: 6px;
+}
+
+/* Nota final de privacidad */
+.report-note {
+  background: var(--card-warm);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-md);
+  padding: 18px 22px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--ash);
+  line-height: 1.65;
+  font-style: italic;
+  text-align: center;
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Pie del reporte (solo visible al imprimir) */
+.report-footer {
+  display: none;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================ */
+/* LOGO ORDENI                                                   */
+/* ============================================================ */
+/* El SVG usa currentColor para el círculo y las letras, y amarillo
+   fijo (#f5c842) para check, dots y punto-i. Así el mismo código
+   funciona en contextos oscuros (color blanco) y claros (color ink). */
+.ordeni-logo {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+.ordeni-logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Variantes de tamaño */
+.ordeni-logo--sm { width: 88px; }
+.ordeni-logo--md { width: 140px; }
+.ordeni-logo--lg { width: 200px; }
+
+/* ============================================================ */
+/* PRINT STYLES                                                  */
+/* ============================================================ */
+@media print {
+  /* Preserva colores de fondo al imprimir (cajas oscuras, accents, etc.) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Reset del contenedor: ancho completo de la página */
+  html, body {
+    background: white !important;
+    font-size: 12pt;
+  }
+  .app {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+  .screen {
+    padding: 24pt 32pt !important;
+    min-height: auto !important;
+  }
+
+  /* Ocultar chrome: nav, botones, acciones */
+  .no-print,
+  .nav-header,
+  .action-row,
+  .back-btn,
+  .icon-btn,
+  .toast,
+  .modal-backdrop,
+  [data-print-report] {
+    display: none !important;
+  }
+
+  /* Mostrar pie solo en impresión */
+  .report-footer { display: block !important; }
+
+  /* Evitar cortes feos de cajas importantes */
+  .report-summary,
+  .report-progress-block,
+  .report-milestone,
+  .report-debt,
+  .report-timeline-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-section {
+    break-inside: avoid-page;
+  }
+
+  /* Sombras fuera al imprimir — tinta gastada sin necesidad */
+  .report-summary,
+  .report-progress-block,
+  .report-milestone,
+  .report-debt {
+    box-shadow: none !important;
+  }
+
+  /* Suaviza bordes para print */
+  .report-debt, .report-milestone {
+    border: 1px solid #d8d0c2 !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .reality-amount { font-size: 40px; }
+  .welcome h1 { font-size: 44px; }
+  .form-title { font-size: 28px; }
+  .screen { padding: 32px 22px 80px; }
+}
+
+/* ===================================================== */
+/* V3 — MECANISMOS TRANSACCIONALES                        */
+/* Urgencia → Opciones → Confirmación → Victoria          */
+/* ===================================================== */
+
+/* ---------- Banner de Urgencia (Sprint 0) ---------- */
+.urgency-banner {
+  position: relative;
+  background: linear-gradient(135deg, #c04530 0%, #a63d28 100%);
+  color: #fff8f2;
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(192, 69, 48, 0.25), 0 2px 4px rgba(192, 69, 48, 0.15);
+  overflow: hidden;
+  animation: urgency-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.urgency-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f5c842 0%, #fff8f2 50%, #f5c842 100%);
+  opacity: 0.6;
+}
+@keyframes urgency-enter {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.urgency-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 242, 0.85);
+}
+.urgency-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #f5c842;
+  animation: urgency-pulse 1.4s ease-in-out infinite;
+}
+@keyframes urgency-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+.urgency-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  color: #fff8f2;
+}
+.urgency-body {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(255, 248, 242, 0.92);
+  margin-bottom: 14px;
+}
+.urgency-body strong {
+  color: #f5c842;
+  font-weight: 600;
+}
+.urgency-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff8f2;
+  color: #a63d28;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--r-pill);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.urgency-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.urgency-cta:active { transform: translateY(0); }
+
+/* ---------- Quick Actions (3 botones grandes) ---------- */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.quick-action {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+}
+.quick-action:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.quick-action:active { transform: translateY(0); }
+.quick-action.primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.quick-action.primary:hover {
+  background: var(--ink-soft);
+  border-color: var(--ink-soft);
+}
+.quick-action.primary .qa-label { color: rgba(247,241,230,0.7); }
+.quick-action.primary .qa-amount { color: var(--paper); }
+.quick-action.primary .qa-sub { color: rgba(247,241,230,0.6); }
+
+.quick-action.full {
+  grid-column: 1 / -1;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-warm);
+}
+.quick-action.full:hover { background: var(--paper-deep); }
+.quick-action.full .qa-full-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.quick-action.full .qa-full-arrow {
+  color: var(--accent-deep);
+  font-size: 18px;
+}
+
+.qa-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.qa-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+.qa-sub {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* ---------- Modal de Opciones de Pago (Sprint 1) ---------- */
+.pay-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 32, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fade-in 0.2s ease;
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.pay-modal {
+  background: var(--paper);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-top-left-radius: var(--r-xl);
+  border-top-right-radius: var(--r-xl);
+  box-shadow: var(--shadow-modal);
+  animation: slide-up 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 24px 22px 28px;
+}
+@keyframes slide-up {
+  from { transform: translateY(30px); opacity: 0.7; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.pay-modal-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: -8px auto 18px;
+}
+.pay-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 12px;
+}
+.pay-modal-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ink);
+  flex: 1;
+}
+.pay-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pay-modal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+.pay-amount-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px 20px;
+  margin-bottom: 18px;
+}
+.pay-amount-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 10px;
+}
+.pay-amount-big {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 38px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+.pay-amount-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.pay-slider-wrap {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border);
+}
+.pay-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  margin: 8px 0 4px;
+}
+.pay-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(200, 118, 86, 0.35);
+  border: 3px solid var(--paper);
+}
+.pay-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(200, 118, 86, 0.35);
+  border: 3px solid var(--paper);
+}
+.pay-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.pay-impact {
+  background: var(--sage-soft);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.pay-impact strong {
+  color: var(--sage-deep);
+  font-weight: 600;
+}
+.pay-impact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(90, 124, 95, 0.15);
+}
+.pay-impact-item .label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  opacity: 0.75;
+  margin-bottom: 2px;
+}
+.pay-impact-item .val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.pay-options-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  background: var(--card-warm);
+  padding: 4px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+}
+.pay-tab {
+  flex: 1;
+  padding: 9px 10px;
+  background: transparent;
+  border: none;
+  border-radius: var(--r-pill);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.pay-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.pay-secondary-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+.pay-secondary-option:hover {
+  border-color: var(--accent);
+  background: var(--card-warm);
+}
+.pay-secondary-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.pay-secondary-content { flex: 1; min-width: 0; }
+.pay-secondary-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.pay-secondary-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.pay-secondary-arrow {
+  color: var(--muted);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.pay-proceed-btn {
+  width: 100%;
+  background: var(--sage-deep);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(90, 124, 95, 0.25);
+}
+.pay-proceed-btn:hover {
+  background: #4a6b4f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(90, 124, 95, 0.3);
+}
+.pay-proceed-btn:active { transform: translateY(0); }
+.pay-proceed-btn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+
+.pay-debt-selector {
+  background: var(--card-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+}
+.pay-debt-selector-label {
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pay-debt-selector select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 13px;
+  text-align: right;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ---------- Confirmación de Pago (Sprint 2) ---------- */
+.pay-confirm-summary {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.pay-confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.pay-confirm-row:last-child { border-bottom: none; padding-bottom: 0; }
+.pay-confirm-row:first-child { padding-top: 0; }
+.pay-confirm-row .label { color: var(--muted); }
+.pay-confirm-row .val { color: var(--ink); font-weight: 500; font-family: 'DM Mono', monospace; }
+.pay-confirm-row.highlight .val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  color: var(--accent-deep);
+  font-weight: 500;
+}
+
+.pay-method-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-warm);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  font-size: 11.5px;
+  color: var(--ash);
+  margin-bottom: 12px;
+}
+.pay-method-pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+.pay-confirm-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 10px;
+}
+.pay-confirm-cancel {
+  background: transparent;
+  color: var(--ash);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.pay-confirm-cancel:hover {
+  background: var(--card-warm);
+  border-color: var(--ash);
+}
+
+/* ---------- Pantalla de Victoria (Sprint 2) ---------- */
+.victory-screen {
+  padding: 80px 28px 60px;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.victory-celebration {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 36px rgba(90, 124, 95, 0.35);
+  animation: victory-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+@keyframes victory-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.victory-celebration::before,
+.victory-celebration::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--brand-yellow);
+  animation: confetti-fly 1.2s ease-out 0.3s both;
+}
+.victory-celebration::before {
+  top: -8px; left: 20%;
+  animation-delay: 0.2s;
+}
+.victory-celebration::after {
+  top: -4px; right: 18%;
+  background: var(--accent);
+  animation-delay: 0.4s;
+}
+@keyframes confetti-fly {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  30% { transform: translateY(-20px) scale(1); opacity: 1; }
+  100% { transform: translateY(-60px) scale(0.6); opacity: 0; }
+}
+.victory-check {
+  color: #fff;
+  font-size: 48px;
+  line-height: 1;
+}
+.victory-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 12px;
+  animation: fade-up 0.5s ease 0.4s both;
+}
+.victory-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+  animation: fade-up 0.5s ease 0.5s both;
+}
+.victory-amount {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--accent-deep);
+  margin-bottom: 24px;
+  animation: fade-up 0.5s ease 0.6s both;
+}
+.victory-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ash);
+  margin-bottom: 32px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fade-up 0.5s ease 0.7s both;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.victory-stats {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  animation: fade-up 0.5s ease 0.8s both;
+  text-align: left;
+}
+.victory-stat .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+  display: block;
+}
+.victory-stat .val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.victory-next {
+  background: var(--accent-soft);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  margin-bottom: 28px;
+  text-align: left;
+  animation: fade-up 0.5s ease 0.9s both;
+}
+.victory-next-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+}
+.victory-next-body {
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.victory-actions {
+  display: grid;
+  gap: 10px;
+  animation: fade-up 0.5s ease 1s both;
+}
+.victory-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 15px;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.victory-primary:hover { background: var(--ink-soft); }
+.victory-secondary {
+  background: transparent;
+  color: var(--ash);
+  border: none;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+}
+.victory-secondary:hover { color: var(--ink); text-decoration-color: var(--accent); }
+
+/* Gateway placeholder (para conectar payment real después) */
+.gateway-placeholder {
+  background: var(--card-warm);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.gateway-placeholder-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Mobile tuning */
+@media (max-width: 380px) {
+  .urgency-title { font-size: 17px; }
+  .urgency-body { font-size: 12.5px; }
+  .qa-amount { font-size: 16px; }
+  .pay-amount-big { font-size: 32px; }
+  .victory-title { font-size: 28px; }
+  .victory-amount { font-size: 24px; }
+  .victory-stats { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+// ============== STATE ==============
+let state = {
+  view: 'loading',
+  onbStep: 0,
+  profile: { name: '', income: 0, pin: null, strategy: 'auto', currency: 'COP', rates: null, ratesUpdated: null, ratesError: null, createdAt: null, unlockedMilestones: [], paymentHistory: [] },
+  debts: [],
+  unlocked: false,
+  pinInput: '',
+  pinStage: 'enter',
+  tempPin: '',
+  pinError: false,
+  editingDebt: null,
+  modal: null
+};
+
+const STRATEGY_NAMES = { avalanche: 'Avalancha', snowball: 'Bola de nieve' };
+
+// ============== LOGO HELPER ==============
+// Devuelve el SVG del logo ORDENI como string. El círculo y las letras
+// usan currentColor (heredan del contenedor), lo que permite usar el mismo
+// logo sobre fondo oscuro (color blanco) y fondo claro (color ink) sin
+// mantener dos versiones. El amarillo de marca es fijo.
+//
+// Nota técnica: la "i" final se dibuja manualmente (rect + circle) para
+// garantizar que el dot sea amarillo. Si renderizáramos "RDENi" como texto
+// completo, Fredoka dibujaría su propio punto y quedarían dos dots
+// superpuestos (el default y el amarillo nuestro).
+function ordeniLogo(sizeClass) {
+  const cls = sizeClass || 'ordeni-logo--md';
+  return `
+    <span class="ordeni-logo ${cls}" aria-label="ORDENI">
+      <svg viewBox="0 0 195 70" xmlns="http://www.w3.org/2000/svg">
+        <!-- 3 dots de confetti saliendo de la O -->
+        <circle cx="42" cy="9" r="4" fill="#f5c842"/>
+        <circle cx="54" cy="5" r="5" fill="#f5c842"/>
+        <circle cx="66" cy="10" r="3.5" fill="#f5c842"/>
+
+        <!-- O: círculo outlined -->
+        <circle cx="35" cy="42" r="22" fill="none" stroke="currentColor" stroke-width="7"/>
+
+        <!-- Check amarillo dentro de la O -->
+        <path d="M 20 43 L 32 54 L 54 26" fill="none" stroke="#f5c842" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Wordmark "RDEN" -->
+        <text x="64" y="57" font-family="Fredoka, 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="42" fill="currentColor" letter-spacing="-1">RDEN</text>
+
+        <!-- "i" a mano: cuerpo + dot amarillo, pegada al RDEN -->
+        <rect x="170" y="32" width="11" height="25" rx="5.5" fill="currentColor"/>
+        <circle cx="175.5" cy="24" r="5.5" fill="#f5c842"/>
+      </svg>
+    </span>
+  `;
+}
+
+// ============== CURRENCIES ==============
+const CURRENCIES = {
+  COP: { name: 'Peso colombiano',  symbol: '$',   locale: 'es-CO', decimals: 0 },
+  MXN: { name: 'Peso mexicano',    symbol: 'MX$', locale: 'es-MX', decimals: 2 },
+  ARS: { name: 'Peso argentino',   symbol: '$',   locale: 'es-AR', decimals: 2 },
+  CLP: { name: 'Peso chileno',     symbol: 'CL$', locale: 'es-CL', decimals: 0 },
+  PEN: { name: 'Sol peruano',      symbol: 'S/',  locale: 'es-PE', decimals: 2 },
+  BRL: { name: 'Real brasileño',   symbol: 'R$',  locale: 'pt-BR', decimals: 2 },
+  UYU: { name: 'Peso uruguayo',    symbol: '$U',  locale: 'es-UY', decimals: 2 },
+  BOB: { name: 'Boliviano',        symbol: 'Bs.', locale: 'es-BO', decimals: 2 },
+  DOP: { name: 'Peso dominicano',  symbol: 'RD$', locale: 'es-DO', decimals: 2 },
+  CRC: { name: 'Colón costarricense', symbol: '₡', locale: 'es-CR', decimals: 0 },
+  USD: { name: 'Dólar',            symbol: 'US$', locale: 'en-US', decimals: 2 },
+  EUR: { name: 'Euro',             symbol: '€',   locale: 'de-DE', decimals: 2 }
+};
+
+function currencyMeta(code) { return CURRENCIES[code] || CURRENCIES.COP; }
+
+// ============== DEBT CATEGORIES ==============
+const DEBT_CATEGORIES = {
+  card:      { label: 'Tarjeta de crédito',                                 short: 'Tarjeta' },
+  personal:  { label: 'Libre inversión · préstamo personal',                short: 'Personal' },
+  vehicle:   { label: 'Vehículo',                                           short: 'Vehículo' },
+  mortgage:  { label: 'Vivienda · hipoteca',                                short: 'Vivienda' },
+  education: { label: 'Educativo',                                          short: 'Educativo' },
+  payroll:   { label: 'Libranza',                                           short: 'Libranza' },
+  bnpl:      { label: 'Compra a cuotas (Addi, Rappi Pay, Sistecrédito…)',   short: 'Cuotas' },
+  business:  { label: 'Deuda del negocio',                                  short: 'Negocio' },
+  family:    { label: 'Familiar o amigo',                                   short: 'Familiar' },
+  informal:  { label: 'Préstamo informal',                                  short: 'Informal' },
+  utilities: { label: 'Servicios · impuestos atrasados',                    short: 'Servicios' },
+  other:     { label: 'Otra',                                               short: 'Otra' }
+};
+function categoryMeta(code) { return DEBT_CATEGORIES[code] || DEBT_CATEGORIES.other; }
+
+async function fetchRates() {
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    if (data.result !== 'success' || !data.rates) throw new Error('bad payload');
+    state.profile.rates = data.rates;
+    state.profile.ratesUpdated = Date.now();
+    state.profile.ratesError = false;
+    await saveAll();
+    return true;
+  } catch (e) {
+    console.warn('rates fetch failed', e);
+    state.profile.ratesError = true;
+    try { await saveAll(); } catch(_) {}
+    return false;
+  }
+}
+
+async function ensureRates(force) {
+  const ts = state.profile.ratesUpdated || 0;
+  const stale = Date.now() - ts > 12 * 60 * 60 * 1000; // 12h
+  if (force || !state.profile.rates || stale) return await fetchRates();
+  return true;
+}
+
+function convert(amount, from, to) {
+  if (!amount || amount === 0) return 0;
+  if (from === to) return amount;
+  const r = state.profile.rates;
+  if (!r || !r[from] || !r[to]) return amount; // sin tasas disponibles: no conversion
+  return amount * r[to] / r[from];
+}
+
+function toPrimary(amount, currency) {
+  return convert(amount, currency, state.profile.currency);
+}
+
+function hasMixedCurrencies() {
+  const p = state.profile.currency;
+  return state.debts.some(d => (d.currency || p) !== p);
+}
+
+function breakdownByCategory() {
+  const a = active();
+  const map = {};
+  a.forEach(d => {
+    const key = d.category || 'other';
+    const amount = balanceInPrimary(d);
+    if (!map[key]) map[key] = { key, label: categoryMeta(key).short, amount: 0, count: 0 };
+    map[key].amount += amount;
+    map[key].count++;
+  });
+  return Object.values(map).sort((a, b) => b.amount - a.amount);
+}
+
+// ============== STRATEGY EXPLANATION ==============
+// Explicación rica en lenguaje simple sobre por qué esta deuda es la prioritaria.
+function explainPriority() {
+  const a = active();
+  if (a.length < 2) return null;
+  const strat = currentStrategy();
+  const p = priorityDebt();
+  if (!p) return null;
+
+  const pBal = balanceInPrimary(p);
+  const pInt = pBal * (p.rate / 100 / 12); // interés/mes en moneda principal
+  const pMin = minInPrimary(p);
+
+  // Calcular impacto: tiempo ahorrado si cierra ESTA deuda primero vs la segunda opción
+  const secondary = [...a].filter(d => d.id !== p.id).sort((x, y) =>
+    strat === 'snowball' ? balanceInPrimary(x) - balanceInPrimary(y) : y.rate - x.rate
+  )[0];
+
+  let whyLine, impactLine;
+  if (strat === 'avalanche') {
+    whyLine = `Te cobra ${p.rate}% anual · ${fmt(pInt)} de intereses cada mes. Es la tasa más alta que tienes.`;
+    impactLine = `Cada peso extra que dirijas aquí reduce intereses futuros más que en cualquier otra deuda. No es opinión — es matemática.`;
+  } else {
+    whyLine = `Es tu deuda más pequeña — ${fmt(pBal)}. Cerrarla está cerca.`;
+    impactLine = `Al cerrarla liberas ${fmt(pMin)} de cuota mínima que puedes dirigir a la siguiente. Y el empuje emocional de cerrar una es real.`;
+  }
+
+  return { whyLine, impactLine, debt: p, secondary };
+}
+
+// ============== CONTEXTUAL TIPS ==============
+// Reglas que disparan tips educativos basados en el estado del usuario.
+function computeTips() {
+  const tips = [];
+  const a = active();
+  const dismissed = state.profile.dismissedTips || [];
+
+  // Tip: cuotas mínimas que apenas cubren intereses
+  const struggling = a.filter(d => {
+    const int = d.balance * (d.rate / 100 / 12);
+    return d.minPayment > 0 && d.minPayment < int * 1.15;
+  });
+  if (struggling.length > 0) {
+    tips.push({
+      id: 'min_payment_low',
+      title: 'La mínima no es pago, es sostenimiento',
+      body: `Tienes ${struggling.length === 1 ? 'una deuda' : struggling.length + ' deudas'} donde la cuota mínima apenas cubre intereses. En este ritmo no se cierra. Dos caminos: negociar tasa, o dirigir algo extra.`,
+      cta: { label: 'Ver guion de negociación', kind: 'negotiate', debtId: struggling[0].id }
+    });
+  }
+
+  // Tip: múltiples tarjetas
+  const cards = a.filter(d => (d.category || '') === 'card');
+  if (cards.length >= 3) {
+    tips.push({
+      id: 'multiple_cards',
+      title: cards.length + ' tarjetas abiertas',
+      body: 'Consolidar varias tarjetas en una sola línea de menor tasa suele ahorrar mucho en intereses. No es para todos, pero vale simular qué pasa.',
+      cta: { label: 'Abrir simulador', kind: 'simulator' }
+    });
+  }
+
+  // Tip: primera deuda registrada
+  if (a.length === 1 && paid().length === 0) {
+    tips.push({
+      id: 'first_debt',
+      title: 'Ya viste la primera',
+      body: 'Registrar es más de la mitad. El cerebro deja de esquivar. Si hay más deudas, agrégalas sin prisa — hoy una, mañana otra.',
+    });
+  }
+
+  // Tip: deuda familiar o informal
+  const personal = a.filter(d => ['family','informal'].includes(d.category || ''));
+  if (personal.length > 0) {
+    tips.push({
+      id: 'personal_debt',
+      title: 'Deudas con personas',
+      body: 'Los préstamos familiares o informales muchas veces se pueden reestructurar con una conversación honesta, no con un pago imposible. El silencio las hace más grandes.',
+    });
+  }
+
+  // Tip: tasa muy alta en alguna deuda
+  const veryHigh = a.find(d => d.rate > 35);
+  if (veryHigh) {
+    tips.push({
+      id: 'very_high_rate',
+      title: 'Tasa alta: negocia o cambia',
+      body: `${esc(veryHigh.creditor)} te cobra ${veryHigh.rate}% anual. Es alto incluso para tarjeta. Llamar a pedir reducción cuesta 10 minutos y a veces funciona.`,
+      cta: { label: 'Ver guion', kind: 'negotiate', debtId: veryHigh.id }
+    });
+  }
+
+  // Tip: ingreso no registrado con muchas deudas
+  if (a.length >= 3 && !state.profile.income) {
+    tips.push({
+      id: 'set_income',
+      title: 'Sin ingreso registrado',
+      body: 'Si registras tu ingreso mensual, el plan semanal te dirá si lo que estás pagando es sostenible o te estás ahogando.',
+      cta: { label: 'Registrar ingreso', kind: 'setting', setting: 'income' }
+    });
+  }
+
+  return tips.filter(t => !dismissed.includes(t.id)).slice(0, 2);
+}
+
+async function dismissTip(id) {
+  if (!state.profile.dismissedTips) state.profile.dismissedTips = [];
+  if (!state.profile.dismissedTips.includes(id)) {
+    state.profile.dismissedTips.push(id);
+    await saveAll();
+  }
+  render();
+}
+
+// ============== NEGOTIATION SCRIPTS ==============
+// Genera 4 guiones personalizados para llamar/escribir al acreedor.
+function generateScripts(d) {
+  const ccy = debtCcy(d);
+  const bal = fmt(d.balance, ccy);
+  const rate = d.rate;
+  const monthlyInt = fmt(d.balance * (d.rate / 100 / 12), ccy);
+  const creditor = d.creditor;
+  const catLabel = categoryMeta(d.category || 'other').short.toLowerCase();
+
+  return [
+    {
+      id: 'rate_reduction',
+      title: 'Pedir reducción de tasa',
+      when: 'Cuando llevas tiempo pagando bien y la tasa te está ahogando.',
+      body:
+`Buenas tardes. Soy cliente con ${esc(creditor)} desde hace [tiempo]. Llamo por un tema puntual: mi tasa actual es del ${rate}% anual y necesito pedir una revisión hacia abajo.
+
+Sostener esa tasa a largo plazo no es viable para mí. He estado evaluando opciones con otras entidades que me ofrecen condiciones mejores, pero preferiría quedarme con ustedes si encontramos un número que funcione para los dos.
+
+¿Pueden revisar qué tasa me pueden autorizar?
+
+[Si el asesor dice que no puede]: Entiendo que no es tu decisión sola. ¿Me puedes transferir con alguien que sí tenga la autorización, o tomar la solicitud para que me devuelvan la llamada? Necesito una respuesta antes de tomar la decisión.`,
+      tips: [
+        'Llama en los primeros días del mes — los asesores suelen tener más margen para autorizar.',
+        'No pidas perdón. Estás pidiendo una revisión comercial, no un favor.',
+        'Si dicen que no, cuelga y vuelve a llamar en unos días. Te puede tocar otro asesor con más autoridad.'
+      ]
+    },
+    {
+      id: 'hardship',
+      title: 'Pedir congelamiento temporal',
+      when: 'Cuando una situación puntual (salud, pérdida de ingreso, cambio laboral) te está golpeando.',
+      body:
+`Buenas. Estoy pasando por [describe breve: reducción de ingresos / tema de salud / cambio de empleo] y necesito hablar antes de entrar en mora, no después.
+
+Mi saldo actual es de ${bal}. Lo que necesito pedir es: pausa temporal del pago de capital durante [2 o 3] meses, o una reducción de cuota durante ese período. No busco que me perdonen nada — solo tiempo para estabilizar y volver a pagar normal.
+
+¿Qué opciones manejan para clientes en esta situación?
+
+[Importante]: No te comprometas en la llamada a un número que no puedas sostener. Si te ofrecen algo, pide que te lo envíen por correo o SMS antes de aceptar por escrito.`,
+      tips: [
+        'Pide el acuerdo por escrito. Nunca aceptes términos solo por teléfono.',
+        'Pregunta si durante la pausa la deuda sigue generando intereses — muchas veces sí, y es información crítica.',
+        'Consigue número de radicación o ticket de la llamada. Sin eso, no pasó.'
+      ]
+    },
+    {
+      id: 'payment_plan',
+      title: 'Proponer un plan de pagos',
+      when: 'Cuando ya estás en mora o a punto, y necesitas un acuerdo formal.',
+      body:
+`Llamo sobre mi ${catLabel} con saldo de ${bal}. Quiero proponer un plan de pagos que pueda cumplir sin fallar.
+
+Lo que puedo pagar de forma realista son [monto honesto] al mes durante [plazo]. Necesito que durante este plan la tasa quede congelada y no se generen cargos adicionales mientras cumplo.
+
+Mi meta es quedar al día sin entrar en cobro jurídico. Si ustedes me dan términos que pueda cumplir, los cumplo.
+
+[Si la contraoferta es imposible]: Entiendo que esa es su propuesta. No puedo comprometerme a un número que sé que no voy a poder pagar — eso nos perjudica a los dos. ¿Cuál es el mínimo real que ustedes pueden aceptar?`,
+      tips: [
+        'Ofrece un número que puedas pagar el mes peor, no el mes bueno.',
+        'Pide explícitamente que congelen la tasa y los cargos durante el acuerdo.',
+        'Si llegas a acuerdo, cumple religiosamente los primeros 3 meses. Eso cambia todo.'
+      ]
+    },
+    {
+      id: 'consolidation',
+      title: 'Consolidar varias deudas',
+      when: 'Cuando tienes varias deudas regadas y una sola cuota manejable te ordenaría la vida.',
+      body:
+`Tengo deudas distribuidas en varias entidades por un total aproximado de [suma total]. Quiero consolidarlas en un solo crédito con ustedes para tener una cuota única y, ojalá, una tasa más baja que el promedio que estoy pagando hoy.
+
+Lo que necesito saber:
+— ¿Qué producto de consolidación tienen y qué tasa me podrían ofrecer?
+— ¿Cuál sería la cuota mensual estimada a [plazo en años]?
+— ¿El crédito me permite cerrar las otras obligaciones directamente desde aquí, o me giran el dinero?
+
+Quiero tomar una decisión informada — pido la tabla de amortización completa antes de firmar.`,
+      tips: [
+        'Compara el TOTAL a pagar del nuevo crédito vs. la suma que pagarías hoy. A veces la cuota baja pero el total sube por el plazo más largo.',
+        'Una tasa de consolidación útil debe ser menor al promedio ponderado de tus tasas actuales — si no, no estás consolidando, estás refinanciando caro.',
+        'Cierra explícitamente las tarjetas/productos viejos al consolidar. Si las dejas abiertas, muchos vuelven a llenarlas.'
+      ]
+    }
+  ];
+}
+
+function ratesAgeText() {
+  const ts = state.profile.ratesUpdated;
+  if (!ts) return 'nunca';
+  const diff = Date.now() - ts;
+  const h = Math.floor(diff / 3600000);
+  const d = Math.floor(h / 24);
+  if (d >= 1) return `hace ${d} ${d === 1 ? 'día' : 'días'}`;
+  if (h >= 1) return `hace ${h} ${h === 1 ? 'hora' : 'horas'}`;
+  return 'recién actualizada';
+}
+
+// ============== MILESTONES ==============
+// Hitos emocionales que se disparan cuando el usuario cruza umbrales de progreso.
+// Se persisten en state.profile.unlockedMilestones para no repetirse.
+
+const MILESTONES = {
+  first_paid: {
+    tag: 'Una menos',
+    msg: 'Esa primera deuda cerrada se siente como un peso que te quitas del pecho. El camino empieza a ser real.',
+    sub: 'Una deuda cerrada'
+  },
+  pct_25: {
+    tag: '25% recorrido',
+    msg: 'Una cuarta parte de lo que debías, ya fue. No es poco. No es suerte. Sigue.',
+    sub: 'Un cuarto del camino'
+  },
+  pct_50: {
+    tag: 'Mitad de camino',
+    msg: 'Llegaste a la mitad. Lo que falta pesa menos que lo que ya hiciste. Respira.',
+    sub: 'La mitad del camino'
+  },
+  pct_75: {
+    tag: '75% recorrido',
+    msg: 'Tres cuartos. Lo que queda es la recta final — el ritmo ya lo tienes.',
+    sub: 'Recta final'
+  },
+  all_paid: {
+    tag: 'Libre',
+    msg: 'Cerraste todas. Léelo despacio: cerraste todas. Lo que viene ahora no es pagar — es construir.',
+    sub: 'Cero deuda'
+  }
+};
+
+// Total inicial (suma de initialBalance convertida a moneda principal).
+// Usa balance como fallback por si una deuda antigua no lo tiene.
+function totalInitialDebt() {
+  return state.debts.reduce((s, d) => {
+    const init = d.initialBalance || d.balance || 0;
+    return s + toPrimary(init, debtCcy(d));
+  }, 0);
+}
+
+// Total ya pagado = suma de (initial - currentBalance) para todas.
+// Para deudas cerradas, el balance es 0, así que el initial completo cuenta.
+function totalPaidDebt() {
+  return state.debts.reduce((s, d) => {
+    const init = d.initialBalance || d.balance || 0;
+    const current = d.paidOff ? 0 : (d.balance || 0);
+    return s + toPrimary(Math.max(0, init - current), debtCcy(d));
+  }, 0);
+}
+
+function progressPct() {
+  const init = totalInitialDebt();
+  if (init <= 0) return 0;
+  return Math.min(1, totalPaidDebt() / init);
+}
+
+// Devuelve los IDs de hitos que deberían estar ganados según el state actual
+function earnedMilestones() {
+  const earned = [];
+  const closed = state.debts.filter(d => d.paidOff).length;
+  const total = state.debts.length;
+  const pct = progressPct();
+
+  if (closed >= 1) earned.push('first_paid');
+  if (pct >= 0.25) earned.push('pct_25');
+  if (pct >= 0.50) earned.push('pct_50');
+  if (pct >= 0.75) earned.push('pct_75');
+  if (total > 0 && closed === total) earned.push('all_paid');
+
+  return earned;
+}
+
+// Compara hitos ganados vs ya notificados, encola los nuevos y muestra el primero.
+async function checkMilestones() {
+  if (!state.profile.unlockedMilestones) state.profile.unlockedMilestones = [];
+  const earned = earnedMilestones();
+  const unlocked = state.profile.unlockedMilestones;
+  const newOnes = earned.filter(id => !unlocked.includes(id));
+
+  if (newOnes.length === 0) return;
+
+  state.profile.unlockedMilestones = [...unlocked, ...newOnes];
+  await saveAll();
+
+  if (!state.pendingMilestones) state.pendingMilestones = [];
+  state.pendingMilestones.push(...newOnes);
+  showNextMilestone();
+}
+
+// Saca el próximo milestone de la cola y arma el modal.
+// Si hay más, tras cerrar se encadena con un pequeño delay.
+function showNextMilestone() {
+  if (!state.pendingMilestones || state.pendingMilestones.length === 0) return;
+  const id = state.pendingMilestones.shift();
+  const m = MILESTONES[id];
+  if (!m) { showNextMilestone(); return; }
+
+  state.modal = {
+    kind: 'milestone',
+    milestoneId: id,
+    tag: m.tag,
+    msg: m.msg,
+    sub: m.sub,
+    onConfirm: () => {
+      state.modal = null;
+      render();
+      if (state.pendingMilestones && state.pendingMilestones.length > 0) {
+        setTimeout(() => showNextMilestone(), 320);
+      }
+    }
+  };
+  render();
+}
+
+// ============== PERSISTENCE ==============
+async function saveAll() {
+  try {
+    await window.storage.set('profile', JSON.stringify(state.profile));
+    await window.storage.set('debts', JSON.stringify(state.debts));
+  } catch (e) { console.error('save', e); }
+}
+async function loadAll() {
+  try {
+    const p = await window.storage.get('profile');
+    if (p && p.value) state.profile = { ...state.profile, ...JSON.parse(p.value) };
+  } catch (e) {}
+  try {
+    const d = await window.storage.get('debts');
+    if (d && d.value) state.debts = JSON.parse(d.value);
+  } catch (e) {}
+}
+async function wipeAll() {
+  try { await window.storage.delete('profile'); } catch (e) {}
+  try { await window.storage.delete('debts'); } catch (e) {}
+  state.profile = { name: '', income: 0, pin: null, strategy: 'auto', currency: 'COP', rates: null, ratesUpdated: null, ratesError: null, createdAt: null, unlockedMilestones: [], paymentHistory: [] };
+  state.debts = [];
+  state.unlocked = false;
+  state.onbStep = 0;
+}
+
+// ============== CALCS ==============
+const active = () => state.debts.filter(d => !d.paidOff && d.balance > 0);
+const paid = () => state.debts.filter(d => d.paidOff);
+const debtCcy = (d) => d.currency || state.profile.currency;
+const balanceInPrimary = (d) => toPrimary(d.balance, debtCcy(d));
+const minInPrimary = (d) => toPrimary(d.minPayment || 0, debtCcy(d));
+const totalDebt = () => active().reduce((s, d) => s + balanceInPrimary(d), 0);
+const totalInterest = () => active().reduce((s, d) => s + balanceInPrimary(d) * (d.rate / 100 / 12), 0);
+const totalMinimum = () => active().reduce((s, d) => s + minInPrimary(d), 0);
+
+// Motor de simulación flexible.
+// opts = { strategy?, extraMonthly?, lumpSum?:{amount,targetId}, rateOverride?:{id,rate}, balanceOverride?:{id,balance} }
+// retorna { months, totalInterest, freedom } o { error }
+function simulateScenario(opts) {
+  const o = opts || {};
+  const a = active();
+  if (a.length === 0) return { months: 0, totalInterest: 0, freedom: new Date() };
+  const strategy = o.strategy || currentStrategy();
+
+  let debts = a.map(d => {
+    let bal = balanceInPrimary(d);
+    if (o.balanceOverride && o.balanceOverride.id === d.id) {
+      bal = toPrimary(o.balanceOverride.balance, debtCcy(d));
+    }
+    let rate = d.rate;
+    if (o.rateOverride && o.rateOverride.id === d.id) rate = o.rateOverride.rate;
+    return {
+      id: d.id,
+      bal,
+      rate: rate / 100 / 12,
+      min: minInPrimary(d)
+    };
+  });
+
+  // Pago único dirigido a una deuda específica
+  if (o.lumpSum && o.lumpSum.amount > 0) {
+    const target = debts.find(d => d.id === o.lumpSum.targetId);
+    if (target) target.bal = Math.max(0, target.bal - o.lumpSum.amount);
+  }
+
+  const extra = o.extraMonthly || 0;
+  const budget = debts.reduce((s, d) => s + d.min, 0) + extra;
+  const minInterest = debts.reduce((s, d) => s + d.bal * d.rate, 0);
+  if (budget <= minInterest) return { error: 'budget_insufficient' };
+
+  let months = 0;
+  let totalInterest = 0;
+  const MAX = 720;
+
+  while (debts.some(d => d.bal > 0.01) && months < MAX) {
+    // Intereses del mes
+    debts.forEach(d => {
+      if (d.bal > 0) {
+        const int = d.bal * d.rate;
+        totalInterest += int;
+        d.bal += int;
+      }
+    });
+    // Cuotas mínimas
+    let leftover = budget;
+    debts.forEach(d => {
+      if (d.bal > 0) {
+        const p = Math.min(d.min, d.bal);
+        d.bal -= p;
+        leftover -= p;
+      }
+    });
+    // Sobrante va a deuda prioritaria
+    const act = debts.filter(d => d.bal > 0);
+    if (leftover > 0.01 && act.length > 0) {
+      const sorted = strategy === 'snowball'
+        ? [...act].sort((a,b) => a.bal - b.bal)
+        : [...act].sort((a,b) => b.rate - a.rate);
+      const t = debts.find(d => d.id === sorted[0].id);
+      if (t) t.bal -= Math.min(leftover, t.bal);
+    }
+    months++;
+  }
+
+  if (months >= MAX) return { error: 'too_long' };
+  return { months, totalInterest, freedom: freedomDate(months) };
+}
+
+function simulatePayoff(strategy) {
+  const r = simulateScenario({ strategy });
+  if (r.error) return null;
+  return r.months;
+}
+
+function freedomDate(months) {
+  if (!months && months !== 0) return null;
+  if (months === 0) return new Date();
+  const d = new Date();
+  d.setMonth(d.getMonth() + months);
+  return d;
+}
+
+function recommendStrategy() {
+  const a = active();
+  if (a.length < 2) return 'avalanche';
+  const rates = a.map(d => d.rate);
+  return (Math.max(...rates) - Math.min(...rates) > 5) ? 'avalanche' : 'snowball';
+}
+
+function currentStrategy() {
+  return state.profile.strategy === 'auto' ? recommendStrategy() : state.profile.strategy;
+}
+
+function priorityDebt() {
+  const a = active();
+  if (a.length === 0) return null;
+  const s = currentStrategy();
+  return [...a].sort((x, y) => s === 'snowball'
+    ? balanceInPrimary(x) - balanceInPrimary(y)
+    : y.rate - x.rate
+  )[0];
+}
+
+function debtWarning(d) {
+  const mi = d.balance * (d.rate / 100 / 12);
+  if (d.minPayment < mi) return 'Tu cuota mínima es menor a los intereses. Esta deuda está creciendo.';
+  if (d.minPayment < mi * 1.15) return 'La mínima apenas cubre intereses. Vas a tardar mucho.';
+  return null;
+}
+
+// ============== FORMAT ==============
+function fmt(n, currency) {
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  const code = currency || state.profile.currency || 'COP';
+  const c = currencyMeta(code);
+  const value = c.decimals === 0 ? Math.round(n) : n;
+  const formatted = value.toLocaleString(c.locale, {
+    minimumFractionDigits: c.decimals,
+    maximumFractionDigits: c.decimals
+  });
+  return c.symbol + formatted;
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  const m = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return m[d.getMonth()] + ' ' + d.getFullYear();
+}
+// Fecha completa con día — para el reporte (ej: "15 de marzo, 2026")
+function fmtDateFull(d) {
+  if (!d) return '—';
+  const m = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return d.getDate() + ' de ' + m[d.getMonth()] + ', ' + d.getFullYear();
+}
+function monthsText(m) {
+  if (m === null || m === undefined) return 'No determinable';
+  if (m === 0) return 'Hoy';
+  if (m < 12) return m + (m === 1 ? ' mes' : ' meses');
+  const y = Math.floor(m/12); const r = m % 12;
+  let s = y + (y === 1 ? ' año' : ' años');
+  if (r > 0) s += ' y ' + r + (r === 1 ? ' mes' : ' meses');
+  return s;
+}
+function esc(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+// ============== VIEWS ==============
+function viewWelcome() {
+  return `
+    <div class="welcome fade-in">
+      <div class="welcome-inner">
+        <div class="welcome-tag" style="color: var(--ink); margin-bottom: 44px; display: block;">
+          ${ordeniLogo('ordeni-logo--md')}
+        </div>
+        <h1>Un espacio<br>para <em>la verdad</em>.</h1>
+        <p class="welcome-body">Aquí no hay juicio. No pedimos tu nombre real. No tocamos tu banco. Solo tú, tus números, y un camino.</p>
+        <button class="welcome-cta" data-go="onboarding">Comenzar</button>
+      </div>
+      <div class="welcome-footer">Sin banco · Sin juicio · Sin compartir</div>
+    </div>
+  `;
+}
+
+function viewOnboarding() {
+  const step = state.onbStep;
+  const steps = [
+    { title: '¿Cómo quieres que te llamemos?', sub: 'Puede ser cualquier nombre. Nadie más lo verá.', field: 'name', type: 'text', placeholder: 'Un apodo sirve', skip: true },
+    { title: '¿En qué moneda llevas tus cuentas?', sub: 'La principal. Si tienes alguna deuda en otra moneda, se convierte automáticamente.', type: 'currency-choice' },
+    { title: '¿Cuánto ganas al mes, más o menos?', sub: 'Es opcional. Nos ayuda a proponer un plan realista.', field: 'income', type: 'number', placeholder: '1.500.000', skip: true },
+    { title: '¿Quieres un PIN para entrar?', sub: 'Si compartes tu teléfono, esto mantiene tus números privados.', type: 'pin-choice' }
+  ];
+  const s = steps[step];
+  let body;
+  if (s.type === 'pin-choice') {
+    body = `
+      <div class="stack">
+        <button class="btn" data-pin-choice="yes">Sí, crear PIN</button>
+        <button class="btn btn-secondary" data-pin-choice="no">Por ahora no</button>
+      </div>
+    `;
+  } else if (s.type === 'currency-choice') {
+    const current = state.profile.currency || 'COP';
+    body = `
+      <div class="currency-grid">
+        ${Object.keys(CURRENCIES).map(code => {
+          const c = CURRENCIES[code];
+          return `<button type="button" class="currency-opt ${code === current ? 'active' : ''}" data-currency-onb="${code}">
+            <span class="currency-code">${code}</span>
+            <span class="currency-name">${c.name}</span>
+          </button>`;
+        }).join('')}
+      </div>
+      <button class="btn mt-md" data-onb-next>Siguiente</button>
+    `;
+  } else {
+    const val = state.profile[s.field] || '';
+    const hint = s.field === 'income'
+      ? `<div class="field-hint">En ${currencyMeta(state.profile.currency).name.toLowerCase()}.</div>`
+      : '';
+    body = `
+      <div class="field">
+        <input class="field-input" type="${s.type}" id="onb-input" value="${val}" placeholder="${s.placeholder}" ${s.type === 'number' ? 'inputmode="numeric"' : ''} autofocus>
+        ${hint}
+      </div>
+      <button class="btn" data-onb-next>Siguiente</button>
+      ${s.skip ? `<button class="btn-ghost" data-onb-skip>Saltar por ahora</button>` : ''}
+    `;
+  }
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-onb-back>←</button>
+        <div class="progress">
+          ${steps.map((_,i) => `<div class="progress-step ${i === step ? 'active' : i < step ? 'done' : ''}"></div>`).join('')}
+        </div>
+      </div>
+      <h2 class="form-title">${s.title}</h2>
+      <p class="form-subtitle">${s.sub}</p>
+      ${body}
+    </div>
+  `;
+}
+
+function viewPinSetup() {
+  const isConfirm = state.pinStage === 'confirm';
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-pin-cancel>←</button>
+        <div class="progress"><div class="progress-step ${isConfirm ? 'done' : 'active'}"></div><div class="progress-step ${isConfirm ? 'active' : ''}"></div></div>
+      </div>
+      <h2 class="form-title">${isConfirm ? 'Confírmalo' : 'Elige un PIN'}</h2>
+      <p class="form-subtitle">${isConfirm ? 'Vuelve a escribirlo.' : '4 dígitos. Escógelos bien — no hay forma de recuperarlo.'}</p>
+      ${renderPinPad(state.pinInput, state.pinError)}
+      <div class="pin-error-msg">${state.pinError ? (isConfirm ? 'No coincide' : 'Error') : ''}</div>
+    </div>
+  `;
+}
+
+function viewPinLock() {
+  return `
+    <div class="screen fade-in" style="padding-top: 72px;">
+      <div class="text-center mt-md">
+        <div class="eyebrow" style="margin-bottom: 12px;">Modo confidencial</div>
+        <h2 class="form-title text-center">Tu PIN</h2>
+        <p class="form-subtitle text-center">Solo tú lo sabes.</p>
+      </div>
+      ${renderPinPad(state.pinInput, state.pinError)}
+      <div class="pin-error-msg">${state.pinError ? 'PIN incorrecto' : ''}</div>
+    </div>
+  `;
+}
+
+function renderPinPad(input, error) {
+  const dots = Array.from({ length: 4 }, (_, i) =>
+    `<div class="pin-dot ${i < input.length ? 'filled' : ''} ${error ? 'error' : ''}"></div>`
+  ).join('');
+  const keys = ['1','2','3','4','5','6','7','8','9','','0','←'];
+  const keypad = keys.map(k => {
+    if (k === '') return '<div></div>';
+    if (k === '←') return `<button class="pin-key fn" data-pin-key="del">Borrar</button>`;
+    return `<button class="pin-key" data-pin-key="${k}">${k}</button>`;
+  }).join('');
+  return `<div class="pin-display">${dots}</div><div class="pin-keypad">${keypad}</div>`;
+}
+
+function viewFirstDebt() {
+  return `
+    <div class="screen fade-in">
+      <div style="margin-bottom: 40px;">
+        <div class="eyebrow" style="margin-bottom: 16px;">Momento uno</div>
+        <h2 class="form-title">Ahora, la verdad.</h2>
+        <p class="form-subtitle">Registra tu primera deuda. Puedes ser ambiguo — "Tarjeta azul" está bien. Aquí nada sale.</p>
+      </div>
+      ${renderDebtForm(null, true)}
+    </div>
+  `;
+}
+
+function viewAddDebt() {
+  const editing = state.editingDebt;
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow" style="margin:0">${editing ? 'Editar deuda' : 'Nueva deuda'}</div>
+      </div>
+      ${renderDebtForm(editing, false)}
+    </div>
+  `;
+}
+
+function renderDebtForm(debt, isFirst) {
+  // Para deudas nuevas, si el usuario ya había tecleado valores y un re-render los habría borrado
+  // (p.ej. al cambiar el pill de moneda), los recuperamos desde state.debtFormDraft.
+  const d = debt || state.debtFormDraft || {};
+  const primary = state.profile.currency;
+  const ccy = d.currency || state.tempDebtCurrency || primary;
+  const isForeign = ccy !== primary;
+  const ccyMeta = currencyMeta(ccy);
+  const primaryMeta = currencyMeta(primary);
+  const hasRates = !!state.profile.rates;
+
+  // Lista de monedas a mostrar: primaria + USD (si no es primaria) + las demás
+  const pillOrder = [primary, ...Object.keys(CURRENCIES).filter(c => c !== primary)];
+
+  const conversionPreview = isForeign
+    ? (hasRates
+        ? `<div class="conversion-preview">Saldo en ${primary}: se calcula automáticamente con la tasa del día</div>`
+        : `<div class="conversion-preview warn">No se pudo obtener la tasa de cambio. Conéctate a internet para convertir.</div>`)
+    : '';
+
+  return `
+    <form id="debt-form">
+      <div class="field">
+        <label class="field-label">¿A quién le debes?</label>
+        <input class="field-input" name="creditor" type="text" value="${esc(d.creditor || '')}" placeholder="Ej: Visa morada, Tía Ana, Crédito X" required>
+        <div class="field-hint">Cualquier nombre sirve. Nadie más lo verá.</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Tipo de deuda</label>
+        <select class="field-input field-select" name="category" required>
+          ${Object.keys(DEBT_CATEGORIES).map(key => `
+            <option value="${key}" ${(d.category || 'other') === key ? 'selected' : ''}>${DEBT_CATEGORIES[key].label}</option>
+          `).join('')}
+        </select>
+        <div class="field-hint">Te ayuda a ver la composición real de tu deuda.</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Moneda de esta deuda</label>
+        <div class="currency-pills">
+          ${pillOrder.map(code => `
+            <button type="button" class="currency-pill ${code === ccy ? 'active' : ''}" data-currency-pick="${code}">${code}</button>
+          `).join('')}
+        </div>
+        <input type="hidden" name="currency" value="${ccy}">
+        ${isForeign && hasRates ? `<div class="field-hint">Tu moneda principal es ${primary}. Las sumas se mostrarán ahí.</div>` : ''}
+      </div>
+      <div class="field">
+        <label class="field-label">Saldo actual</label>
+        <input class="field-input" name="balance" type="number" id="debt-balance" value="${d.balance || ''}" placeholder="${ccyMeta.decimals === 0 ? '2500000' : '500.00'}" inputmode="decimal" min="0" step="${ccyMeta.decimals === 0 ? '1' : '0.01'}" required>
+        <div class="field-hint">Lo que debes hoy, en ${ccyMeta.name.toLowerCase()} (${ccyMeta.symbol}).</div>
+        <div id="balance-preview" class="conversion-preview"></div>
+      </div>
+      <div class="field">
+        <label class="field-label">Tasa anual (%)</label>
+        <input class="field-input" name="rate" type="number" value="${d.rate || ''}" placeholder="28" inputmode="decimal" min="0" step="0.01" required>
+        <div class="field-hint">Referencia: tarjeta ~25-32% · libre inversión ~18-25% · libranza ~12-20%.</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Cuota mínima mensual</label>
+        <input class="field-input" name="minPayment" type="number" value="${d.minPayment || ''}" placeholder="${ccyMeta.decimals === 0 ? '150000' : '50.00'}" inputmode="decimal" min="0" step="${ccyMeta.decimals === 0 ? '1' : '0.01'}" required>
+        <div class="field-hint">En ${ccyMeta.name.toLowerCase()}.</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Día de vencimiento</label>
+        <input class="field-input" name="dueDay" type="number" value="${d.dueDay || ''}" placeholder="15" inputmode="numeric" min="1" max="31" required>
+        <div class="field-hint">Día del mes en que vence el pago.</div>
+      </div>
+      ${conversionPreview}
+      <button class="btn mt-md" type="submit">${debt ? 'Guardar cambios' : (isFirst ? 'Ver mi realidad' : 'Agregar')}</button>
+      ${debt && !debt.paidOff ? `
+        <div class="btn-row mt-md">
+          <button class="btn btn-secondary" type="button" data-mark-paid="${debt.id}">Ya la pagué</button>
+          <button class="btn btn-secondary" type="button" data-delete-debt="${debt.id}" style="color:var(--red); border-color:rgba(184,90,71,0.35);">Eliminar</button>
+        </div>
+      ` : ''}
+    </form>
+  `;
+}
+
+function viewDashboard() {
+  const td = totalDebt();
+  const mi = totalInterest();
+  const a = active();
+  const strat = currentStrategy();
+  const months = simulatePayoff(strat);
+  const freedom = freedomDate(months);
+  const priority = priorityDebt();
+  const greet = state.profile.name ? esc(state.profile.name) : 'Buenas';
+  const pc = paid().length;
+
+  return `
+    <div class="screen fade-in">
+      <div class="dash-header">
+        <div>
+          <div class="dash-greet">${state.profile.name ? 'Hola' : 'Tu espacio'}</div>
+          <div class="dash-name">${greet}</div>
+        </div>
+        <button class="icon-btn" data-go="settings" aria-label="Ajustes">⚙</button>
+      </div>
+
+      ${a.length === 0 ? renderEmptyDashboard() : `
+        ${renderUrgencyBanner()}
+        <div class="reality-card">
+          <div class="reality-inner">
+            <div class="reality-label">Debes hoy</div>
+            <div class="reality-amount">${fmt(td)}</div>
+            <div class="reality-meta">
+              <div class="reality-meta-item">
+                <div class="reality-meta-label">Intereses / mes</div>
+                <div class="reality-meta-val">${fmt(mi)}</div>
+              </div>
+              <div class="reality-meta-item">
+                <div class="reality-meta-label">Libertad estimada</div>
+                <div class="reality-meta-val">${fmtDate(freedom)}</div>
+              </div>
+            </div>
+            ${(() => {
+              const paid = totalPaidDebt();
+              const init = totalInitialDebt();
+              if (paid <= 0 || init <= 0) return '';
+              const pct = Math.min(100, (paid / init) * 100);
+              return `
+                <div class="reality-progress">
+                  <div class="reality-progress-top">
+                    <span class="reality-progress-label">Has pagado</span>
+                    <span class="reality-progress-value">${fmt(paid)} · ${pct.toFixed(0)}%</span>
+                  </div>
+                  <div class="reality-progress-bar">
+                    <div class="reality-progress-bar-fill" style="width: ${pct}%"></div>
+                  </div>
+                </div>
+              `;
+            })()}
+            ${hasMixedCurrencies() ? `
+              <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(247,241,230,0.15); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; letter-spacing: 0; color: rgba(247,241,230,0.55); text-transform: none;">
+                Tasa del día · ${ratesAgeText()}${state.profile.ratesError ? ' · sin conexión' : ''}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+
+        ${a.length > 1 && priority ? (() => {
+          const exp = explainPriority();
+          return `
+          <div class="strategy-card">
+            <div class="strategy-head">
+              <div class="strategy-title">Estrategia: ${STRATEGY_NAMES[strat]}</div>
+              <button class="strategy-toggle" data-toggle-strategy>Cambiar</button>
+            </div>
+            <div class="strategy-body">
+              Paga los mínimos en todas. Dirige cualquier dinero extra a <strong>${esc(priority.creditor)}</strong>.
+            </div>
+            ${exp ? `
+              <div class="strategy-why">
+                ${exp.whyLine}<br><br>${exp.impactLine}
+              </div>
+            ` : ''}
+          </div>
+        `; })() : '<div style="margin-bottom: 28px;"></div>'}
+
+        ${(() => {
+          const tips = computeTips();
+          if (tips.length === 0) return '';
+          return `
+            <div style="margin-bottom: 28px;">
+              ${tips.map(t => `
+                <div class="tip-card">
+                  <div class="tip-card-head">
+                    <div>
+                      <div class="tip-card-title">${t.title}</div>
+                    </div>
+                    <button class="tip-dismiss" data-dismiss-tip="${t.id}" aria-label="Descartar">×</button>
+                  </div>
+                  <div class="tip-card-body">${t.body}</div>
+                  ${t.cta ? `<button class="tip-cta" data-tip-cta='${JSON.stringify(t.cta).replace(/'/g, "&apos;")}'>${t.cta.label} →</button>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          `;
+        })()}
+
+        ${(() => {
+          const bd = breakdownByCategory();
+          if (bd.length < 2) return '';
+          const maxAmt = bd[0].amount;
+          return `
+            <div class="section-heading" style="margin-top: 0;">
+              <h3>Composición</h3>
+              <span class="section-count">${bd.length} ${bd.length === 1 ? 'categoría' : 'categorías'}</span>
+            </div>
+            <div class="breakdown-card">
+              ${bd.map(b => `
+                <div class="breakdown-row">
+                  <span class="breakdown-label">${b.label}</span>
+                  <div class="breakdown-bar-wrap">
+                    <div class="breakdown-bar" style="width: ${Math.max(4, (b.amount / maxAmt) * 100)}%"></div>
+                  </div>
+                  <span class="breakdown-amount">${fmt(b.amount)}</span>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        })()}
+
+        ${renderQuickActions()}
+
+        <div class="action-row">
+          <button class="btn" data-go="plan">Plan de esta semana</button>
+          <button class="btn btn-secondary" data-go="simulator">¿Qué pasaría si…? · Simulador</button>
+          <button class="btn btn-secondary" data-go="report">Mi reporte</button>
+          <button class="btn btn-secondary" data-go="add-debt">+ Agregar otra deuda</button>
+        </div>
+
+        <div class="section-heading">
+          <h3>Tus deudas</h3>
+          <span class="section-count">${a.length} ${a.length === 1 ? 'activa' : 'activas'}</span>
+        </div>
+        <div>${a.map(d => renderDebtCard(d, priority && d.id === priority.id && a.length > 1)).join('')}</div>
+
+        ${pc > 0 ? `
+          <div class="section-heading">
+            <h3>Cerradas</h3>
+            <span class="section-count">${pc}</span>
+          </div>
+          <div>${paid().map(d => renderDebtCard(d, false)).join('')}</div>
+        ` : ''}
+      `}
+    </div>
+  `;
+}
+
+function renderDebtCard(d, isPriority) {
+  const ccy = debtCcy(d);
+  const primary = state.profile.currency;
+  const isForeign = ccy !== primary;
+  const monthlyInt = d.balance * (d.rate / 100 / 12);
+  const warn = !d.paidOff ? debtWarning(d) : null;
+  const convertedBalance = isForeign ? toPrimary(d.balance, ccy) : null;
+  const convertedMin = isForeign ? toPrimary(d.minPayment || 0, ccy) : null;
+  const convertedInt = isForeign ? toPrimary(monthlyInt, ccy) : null;
+  const hasRates = !!state.profile.rates;
+  const cat = categoryMeta(d.category || 'other');
+
+  return `
+    <div class="debt-card ${d.paidOff ? 'paid' : ''} ${isPriority ? 'priority' : ''}" data-edit-debt="${d.id}">
+      <div class="debt-top">
+        <div>
+          <div class="debt-creditor">${esc(d.creditor)}${isPriority ? '<span class="priority-tag">Prioridad</span>' : ''}</div>
+          <div class="debt-sub"><span class="category-pill" style="margin-left:0">${cat.short}</span> ${d.paidOff ? '· Cerrada' : `· Tasa ${d.rate}% · Vence día ${d.dueDay}${isForeign ? ' · ' + ccy : ''}`}</div>
+        </div>
+        <div>
+          <div class="debt-amount">${fmt(d.balance, ccy)}</div>
+          ${isForeign && hasRates ? `<div class="debt-amount-alt">≈ ${fmt(convertedBalance, primary)}</div>` : ''}
+          ${isForeign && !hasRates ? `<div class="debt-amount-alt">≈ —</div>` : ''}
+        </div>
+      </div>
+      ${!d.paidOff ? `
+        <div class="debt-meta">
+          <span>Cuota mín. <strong>${fmt(d.minPayment, ccy)}</strong></span>
+          <span>Interés/mes <strong>${fmt(monthlyInt, ccy)}</strong></span>
+        </div>
+        ${warn ? `<div class="debt-warn">${warn}</div>` : ''}
+        ${(() => {
+          const init = d.initialBalance || d.balance;
+          if (!init || init <= d.balance) return '';
+          const reduction = init - d.balance;
+          const pct = (reduction / init) * 100;
+          if (pct < 5) return '';
+          return `
+            <div class="debt-progress">
+              <div class="debt-progress-bar">
+                <div class="debt-progress-bar-fill" style="width: ${Math.min(100, pct)}%"></div>
+              </div>
+              <div class="debt-progress-label">Has reducido ${pct.toFixed(0)}% · ${fmt(reduction, ccy)}</div>
+            </div>
+          `;
+        })()}
+        <div style="margin-top: 12px;">
+          <button class="tip-cta" data-negotiate-debt="${d.id}">Ver guion para negociar →</button>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function renderEmptyDashboard() {
+  return `
+    <div class="reality-card">
+      <div class="reality-inner">
+        <div class="reality-label">Debes hoy</div>
+        <div class="reality-amount">${fmt(0)}</div>
+        <div style="color: rgba(247,241,230,0.65); font-size: 14px; margin-top: 18px; line-height: 1.65;">Nada registrado aún. El silencio también es un estado.</div>
+      </div>
+    </div>
+    <div class="empty">
+      <div class="empty-mark">·</div>
+      <div class="empty-title">Empieza por una</div>
+      <div class="empty-body">No tienes que registrar todas hoy. Una deuda es suficiente para empezar a ver.</div>
+      <button class="btn" data-go="add-debt" style="max-width: 240px; margin: 0 auto;">Agregar mi primera deuda</button>
+    </div>
+  `;
+}
+
+function viewPlan() {
+  const a = active();
+  const today = new Date();
+  const todayDay = today.getDate();
+  const priority = priorityDebt();
+  const strat = currentStrategy();
+  const primary = state.profile.currency;
+
+  const upcoming = a.map(d => {
+    let daysUntil = d.dueDay - todayDay;
+    if (daysUntil < 0) daysUntil += 30; // aproximación: próximo mes
+    return { ...d, daysUntil };
+  }).filter(d => d.daysUntil <= 7).sort((a,b) => a.daysUntil - b.daysUntil);
+
+  // Total de la semana en moneda principal (convirtiendo cada cuota según su moneda)
+  const weekTotal = upcoming.reduce((s, d) => s + toPrimary(d.minPayment || 0, debtCcy(d)), 0);
+  const income = state.profile.income || 0;
+  const hasForeign = upcoming.some(d => debtCcy(d) !== primary);
+
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow" style="margin:0">Esta semana</div>
+      </div>
+
+      <h2 class="form-title">Tu plan</h2>
+      <p class="form-subtitle">Lo que vence en los próximos 7 días.</p>
+
+      ${upcoming.length === 0 ? `
+        <div class="empty">
+          <div class="empty-mark">·</div>
+          <div class="empty-title">Ninguna cuota esta semana</div>
+          <div class="empty-body">Respira. Si te sobra algo, puedes adelantar en la deuda prioritaria.</div>
+        </div>
+      ` : `
+        <div class="week-total">
+          <div class="eyebrow">Total de la semana</div>
+          <div style="font-family: 'Fraunces', Georgia, serif; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; margin-top: 8px; font-variant-numeric: tabular-nums;">${fmt(weekTotal)}</div>
+          ${income > 0 ? `<div style="font-size: 12px; color: var(--muted); margin-top: 6px;">≈ ${Math.round((weekTotal/income)*100)}% de tu ingreso mensual</div>` : ''}
+          ${hasForeign ? `<div style="font-size: 12px; color: var(--muted); margin-top: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Total en ${primary}, convertido con tasa del día</div>` : ''}
+        </div>
+
+        <div>
+          ${upcoming.map(d => {
+            const ccy = debtCcy(d);
+            const isForeign = ccy !== primary;
+            return `
+            <div class="plan-day">
+              <div class="plan-day-head">
+                <div>
+                  <div class="plan-date">${d.daysUntil === 0 ? 'Hoy' : d.daysUntil === 1 ? 'Mañana' : `En ${d.daysUntil} días`}</div>
+                  <div class="plan-date-sub">Día ${d.dueDay} del mes</div>
+                </div>
+              </div>
+              <div class="plan-item">
+                <span class="plan-item-name">${esc(d.creditor)}${isForeign ? ` <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0;">· ${ccy}</span>` : ''}</span>
+                <span class="plan-item-amount">${fmt(d.minPayment, ccy)}${isForeign ? `<div style="font-size: 11px; color: var(--muted); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; margin-top: 3px; font-variant-numeric: tabular-nums;">≈ ${fmt(toPrimary(d.minPayment, ccy), primary)}</div>` : ''}</span>
+              </div>
+            </div>
+          `;}).join('')}
+        </div>
+      `}
+
+      ${priority && a.length > 1 ? `
+        <div class="note-card">
+          <div class="note-title">Si te queda algo extra</div>
+          <div class="note-body">
+            Dirígelo a <strong>${esc(priority.creditor)}</strong>.
+            ${strat === 'avalanche'
+              ? `Es la que más te cobra (${priority.rate}% anual). Cada peso extra ahí te ahorra intereses.`
+              : `Es la más pequeña. Cerrarla pronto te dará claridad emocional para seguir.`
+            }
+          </div>
+        </div>
+      ` : ''}
+
+      <button class="btn mt-lg" data-go="dashboard">Volver</button>
+    </div>
+  `;
+}
+
+function viewSettings() {
+  const hasPin = !!state.profile.pin;
+  const stratLabel = state.profile.strategy === 'auto' ? `Automática (${STRATEGY_NAMES[recommendStrategy()]})` : STRATEGY_NAMES[state.profile.strategy];
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow" style="margin:0">Ajustes</div>
+      </div>
+
+      <h2 class="form-title">Tu espacio</h2>
+      <p class="form-subtitle">Todo aquí es tuyo. Todo puede cambiar o borrarse.</p>
+
+      <div class="settings-list">
+        <div class="settings-item" data-setting="name">
+          <div>
+            <div class="settings-label">Nombre</div>
+            <div class="settings-sub">${state.profile.name ? esc(state.profile.name) : 'Sin nombre'}</div>
+          </div>
+          <div class="settings-value">Cambiar</div>
+        </div>
+        <div class="settings-item" data-setting="currency">
+          <div>
+            <div class="settings-label">Moneda principal</div>
+            <div class="settings-sub">${currencyMeta(state.profile.currency).name} · ${state.profile.currency}${hasMixedCurrencies() ? ` · tasa ${ratesAgeText()}` : ''}</div>
+          </div>
+          <div class="settings-value">Cambiar</div>
+        </div>
+        <div class="settings-item" data-setting="income">
+          <div>
+            <div class="settings-label">Ingreso mensual</div>
+            <div class="settings-sub">${state.profile.income ? fmt(state.profile.income) : 'No registrado'}</div>
+          </div>
+          <div class="settings-value">Cambiar</div>
+        </div>
+        <div class="settings-item" data-setting="pin">
+          <div>
+            <div class="settings-label">PIN de acceso</div>
+            <div class="settings-sub">${hasPin ? 'Activo · modo confidencial' : 'Sin PIN'}</div>
+          </div>
+          <div class="settings-value">${hasPin ? 'Quitar' : 'Crear'}</div>
+        </div>
+        <div class="settings-item" data-setting="strategy">
+          <div>
+            <div class="settings-label">Estrategia de pago</div>
+            <div class="settings-sub">${stratLabel}</div>
+          </div>
+          <div class="settings-value">Cambiar</div>
+        </div>
+      </div>
+
+      <div class="mt-xl" style="padding-top: 24px; border-top: 1px solid var(--border);">
+        <button class="btn btn-secondary" style="color: var(--red); border-color: rgba(184,90,71,0.35);" data-setting="wipe">Borrar todo</button>
+        <p style="font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.6;">Borra deudas, perfil y PIN. No se puede deshacer.</p>
+      </div>
+
+      <div style="margin-top: 48px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="color: var(--muted); opacity: 0.6;">
+          ${ordeniLogo('ordeni-logo--sm')}
+        </div>
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; opacity: 0.55;">
+          v0.4 · Un espacio para la verdad
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============== V2 VIEWS ==============
+
+function viewSimulator() {
+  const a = active();
+  if (a.length === 0) {
+    return `
+      <div class="screen fade-in">
+        <div class="nav-header">
+          <button class="back-btn" data-go="dashboard">←</button>
+          <div class="eyebrow">Simulador</div>
+        </div>
+        <div class="empty">
+          <div class="empty-mark">·</div>
+          <div class="empty-title">Nada para simular</div>
+          <div class="empty-body">Registra al menos una deuda y podrás jugar con escenarios.</div>
+          <button class="btn" data-go="add-debt" style="max-width: 240px; margin: 0 auto;">Agregar deuda</button>
+        </div>
+      </div>
+    `;
+  }
+
+  const mode = state.simMode || 'extra';
+  let inputsHtml = '';
+
+  if (mode === 'extra') {
+    const amount = state.simExtra || 0;
+    inputsHtml = `
+      <div class="field">
+        <label class="field-label">Pago extra mensual</label>
+        <input class="field-input" id="sim-extra-input" type="number" value="${amount || ''}" placeholder="Ej: 100000" inputmode="decimal" min="0" step="1">
+        <div class="field-hint">Se suma al total de cuotas mínimas y se dirige a la deuda prioritaria.</div>
+      </div>
+    `;
+  } else if (mode === 'lumpSum') {
+    const amount = state.simLumpAmount || 0;
+    const targetId = state.simLumpTarget || (priorityDebt() && priorityDebt().id) || a[0].id;
+    inputsHtml = `
+      <div class="field">
+        <label class="field-label">Pago único (bono, prima, devolución…)</label>
+        <input class="field-input" id="sim-lump-input" type="number" value="${amount || ''}" placeholder="Ej: 2000000" inputmode="decimal" min="0" step="1">
+      </div>
+      <div class="field">
+        <label class="field-label">Dirigido a</label>
+        <select class="field-input field-select" id="sim-lump-target">
+          ${a.map(d => `<option value="${d.id}" ${d.id === targetId ? 'selected' : ''}>${esc(d.creditor)} — ${fmt(d.balance, debtCcy(d))}</option>`).join('')}
+        </select>
+      </div>
+    `;
+  } else if (mode === 'rate') {
+    const targetId = state.simRateTarget || (priorityDebt() && priorityDebt().id) || a[0].id;
+    const target = a.find(x => x.id === targetId) || a[0];
+    const newRate = state.simNewRate !== undefined ? state.simNewRate : Math.max(0, target.rate - 5);
+    inputsHtml = `
+      <div class="field">
+        <label class="field-label">¿Qué deuda quieres renegociar?</label>
+        <select class="field-input field-select" id="sim-rate-target">
+          ${a.map(d => `<option value="${d.id}" ${d.id === targetId ? 'selected' : ''}>${esc(d.creditor)} — ${d.rate}% actual</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Nueva tasa anual (%)</label>
+        <input class="field-input" id="sim-rate-input" type="number" value="${newRate}" inputmode="decimal" min="0" max="200" step="0.5">
+        <div class="field-hint">Prueba con lo que crees que puedes lograr negociando.</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow">Simulador</div>
+      </div>
+
+      <h2 class="form-title">¿Qué pasaría si...?</h2>
+      <p class="form-subtitle">Juega con escenarios. Nada cambia tus deudas reales — es un espacio para pensar.</p>
+
+      <div class="sim-tabs">
+        <button class="sim-tab ${mode === 'extra' ? 'active' : ''}" data-sim-mode="extra">Pago extra</button>
+        <button class="sim-tab ${mode === 'lumpSum' ? 'active' : ''}" data-sim-mode="lumpSum">Pago único</button>
+        <button class="sim-tab ${mode === 'rate' ? 'active' : ''}" data-sim-mode="rate">Baja de tasa</button>
+      </div>
+
+      <div class="sim-card">
+        ${inputsHtml}
+      </div>
+
+      <div id="sim-dynamic">${buildSimResultHTML()}</div>
+    </div>
+  `;
+}
+
+// Genera SOLO la sección de resultado + footer condicional del simulador.
+// Separada de viewSimulator para permitir actualizaciones parciales del DOM
+// sin destruir los inputs donde el usuario está tecleando (que en móvil
+// causaba pérdida de foco y cierre del teclado virtual).
+function buildSimResultHTML() {
+  const a = active();
+  if (a.length === 0) return '';
+  const mode = state.simMode || 'extra';
+  const baseline = simulateScenario();
+  const primary = state.profile.currency;
+
+  let scenarioOpts = {};
+  if (mode === 'extra') {
+    scenarioOpts = { extraMonthly: toPrimary(state.simExtra || 0, primary) };
+  } else if (mode === 'lumpSum') {
+    const targetId = state.simLumpTarget || (priorityDebt() && priorityDebt().id) || a[0].id;
+    scenarioOpts = { lumpSum: { amount: toPrimary(state.simLumpAmount || 0, primary), targetId } };
+  } else if (mode === 'rate') {
+    const targetId = state.simRateTarget || (priorityDebt() && priorityDebt().id) || a[0].id;
+    const target = a.find(x => x.id === targetId) || a[0];
+    const newRate = state.simNewRate !== undefined ? state.simNewRate : Math.max(0, target.rate - 5);
+    scenarioOpts = { rateOverride: { id: targetId, rate: parseFloat(newRate) || 0 } };
+  }
+
+  const scenario = simulateScenario(scenarioOpts);
+  const savedMonths = baseline.error || scenario.error ? null : Math.max(0, baseline.months - scenario.months);
+  const savedInterest = baseline.error || scenario.error ? null : Math.max(0, baseline.totalInterest - scenario.totalInterest);
+
+  let resultHtml;
+  if (scenario.error === 'budget_insufficient') {
+    resultHtml = `
+      <div class="sim-result error">
+        <div class="sim-result-title">Las cuotas no alcanzan ni para los intereses</div>
+        <div class="sim-result-body">En este escenario la deuda nunca se cerraría. Prueba con un extra mayor, o primero negocia tasas.</div>
+      </div>
+    `;
+  } else if (scenario.error) {
+    resultHtml = `<div class="sim-result error"><div class="sim-result-title">Escenario muy largo</div><div class="sim-result-body">El cálculo supera 60 años. Ajusta los números.</div></div>`;
+  } else {
+    const noChange = savedMonths === 0 && savedInterest < 1;
+    resultHtml = `
+      <div class="sim-result">
+        <div class="sim-delta-grid">
+          <div class="sim-delta">
+            <div class="sim-delta-label">Nueva libertad</div>
+            <div class="sim-delta-val">${fmtDate(scenario.freedom)}</div>
+            ${baseline.freedom && !noChange ? `<div class="sim-delta-sub">antes: ${fmtDate(baseline.freedom)}</div>` : ''}
+          </div>
+          <div class="sim-delta">
+            <div class="sim-delta-label">Meses ${savedMonths > 0 ? 'ahorrados' : 'más'}</div>
+            <div class="sim-delta-val ${savedMonths > 0 ? 'positive' : ''}">${savedMonths != null ? (savedMonths > 0 ? '−' + savedMonths : savedMonths) : '—'}</div>
+          </div>
+          <div class="sim-delta">
+            <div class="sim-delta-label">Intereses ahorrados</div>
+            <div class="sim-delta-val ${savedInterest > 1 ? 'positive' : ''}">${savedInterest != null ? fmt(savedInterest) : '—'}</div>
+          </div>
+        </div>
+        ${noChange ? `<div class="sim-note">Ajusta los números arriba para ver el impacto.</div>` : ''}
+      </div>
+    `;
+  }
+
+  const footerHtml = (mode === 'rate' && !scenario.error) ? `
+    <div class="note-card" style="margin-top: 20px;">
+      <div class="note-title">¿Cómo lograr esa tasa?</div>
+      <div class="note-body">Hay un guion listo para pedir reducción. Toma 10 minutos llamar.</div>
+      <button class="btn btn-secondary mt-sm" data-open-negotiate="${state.simRateTarget || a[0].id}">Ver guion de negociación</button>
+    </div>
+  ` : '';
+
+  return resultHtml + footerHtml;
+}
+
+// Actualización parcial: reemplaza solo la sección dinámica del simulador
+// sin tocar los inputs. Preserva foco y selección del usuario.
+function updateSimResult() {
+  const container = document.getElementById('sim-dynamic');
+  if (!container) return;
+  container.innerHTML = buildSimResultHTML();
+  // Re-enganchar el único handler que aparece dentro de la sección dinámica
+  const openNeg = container.querySelector('[data-open-negotiate]');
+  if (openNeg) {
+    openNeg.addEventListener('click', () => {
+      state.negotiatingDebt = openNeg.dataset.openNegotiate;
+      state.negScriptId = null;
+      goTo('negotiate');
+    });
+  }
+}
+
+function viewNegotiate() {
+  const d = state.negotiatingDebt && state.debts.find(x => x.id === state.negotiatingDebt);
+  if (!d) {
+    return `
+      <div class="screen fade-in">
+        <div class="nav-header">
+          <button class="back-btn" data-go="dashboard">←</button>
+        </div>
+        <div class="empty">
+          <div class="empty-mark">·</div>
+          <div class="empty-title">Elige una deuda</div>
+          <div class="empty-body">Los guiones se personalizan con los datos de una deuda específica.</div>
+        </div>
+      </div>
+    `;
+  }
+
+  const scripts = generateScripts(d);
+  const activeScript = state.negScriptId || scripts[0].id;
+
+  return `
+    <div class="screen fade-in">
+      <div class="nav-header">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow">Negociar</div>
+      </div>
+
+      <h2 class="form-title">Guiones para ${esc(d.creditor)}</h2>
+      <p class="form-subtitle">Elige el escenario. Copia el texto. Respira y marca.</p>
+
+      <div class="script-tabs">
+        ${scripts.map(s => `
+          <button class="script-tab ${s.id === activeScript ? 'active' : ''}" data-neg-script="${s.id}">${s.title}</button>
+        `).join('')}
+      </div>
+
+      ${scripts.filter(s => s.id === activeScript).map(s => `
+        <div class="script-when">${s.when}</div>
+        <div class="script-body" id="script-body-${s.id}">${esc(s.body).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</div>
+        <div class="script-actions">
+          <button class="btn" data-copy-script="${s.id}">Copiar guion</button>
+        </div>
+        <div class="script-tips">
+          <div class="script-tips-head">Antes de llamar</div>
+          <ul>
+            ${s.tips.map(t => `<li>${esc(t)}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="script-disclaimer">
+          Recuerda: los corchetes [así] son donde tú pones tu información. No los leas literales.
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function viewReport() {
+  const a = active();
+  const closedList = paid().slice().sort((x, y) => (y.paidOffAt || 0) - (x.paidOffAt || 0));
+  const nameStr = state.profile.name ? esc(state.profile.name) : 'ti';
+  const now = new Date();
+  const primary = state.profile.currency;
+  const primaryLocale = currencyMeta(primary).locale;
+  const dateStr = now.toLocaleDateString(primaryLocale, { day: 'numeric', month: 'long', year: 'numeric' });
+
+  const currentDebt = totalDebt();
+  const initDebt = totalInitialDebt();
+  const paidAmount = totalPaidDebt();
+  const mi = totalInterest();
+  const pct = progressPct() * 100;
+  const strat = currentStrategy();
+  const months = simulatePayoff(strat);
+  const freedom = freedomDate(months);
+
+  const unlockedIds = state.profile.unlockedMilestones || [];
+  const unlockedList = unlockedIds
+    .filter(id => MILESTONES[id])
+    .map(id => ({ id, ...MILESTONES[id] }));
+
+  // Caso vacío: sin deudas activas ni cerradas
+  if (a.length === 0 && closedList.length === 0) {
+    return `
+      <div class="screen fade-in report-screen">
+        <div class="nav-header no-print">
+          <button class="back-btn" data-go="dashboard">←</button>
+          <div class="eyebrow" style="margin:0">Mi reporte</div>
+        </div>
+        <div class="empty">
+          <div class="empty-mark">·</div>
+          <div class="empty-title">Nada que reportar aún</div>
+          <div class="empty-body">Registra al menos una deuda para generar tu reporte.</div>
+          <button class="btn" data-go="add-debt" style="max-width: 240px; margin: 0 auto;">Agregar deuda</button>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="screen fade-in report-screen">
+      <div class="nav-header no-print">
+        <button class="back-btn" data-go="dashboard">←</button>
+        <div class="eyebrow" style="margin:0">Mi reporte</div>
+      </div>
+
+      <div class="report-header">
+        <h2 class="form-title">Mi progreso</h2>
+        <div class="report-meta">Para ${nameStr} · ${dateStr}</div>
+      </div>
+
+      <!-- Resumen oscuro -->
+      <div class="report-summary">
+        <div class="report-summary-inner">
+          <div class="report-summary-label">Debes hoy</div>
+          <div class="report-summary-amount">${fmt(currentDebt)}</div>
+          <div class="report-summary-grid">
+            <div class="report-summary-cell">
+              <div class="label">Has pagado desde el inicio</div>
+              <div class="value">${fmt(paidAmount)}</div>
+            </div>
+            <div class="report-summary-cell">
+              <div class="label">Intereses este mes</div>
+              <div class="value">${fmt(mi)}</div>
+            </div>
+            <div class="report-summary-cell">
+              <div class="label">Libertad estimada</div>
+              <div class="value">${fmtDate(freedom)}</div>
+            </div>
+            <div class="report-summary-cell">
+              <div class="label">Estrategia</div>
+              <div class="value">${STRATEGY_NAMES[strat] || '—'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progreso global — solo se muestra cuando ya hay avance real, para que
+           un usuario nuevo con 0% no vea una barra vacía que se sienta derrotista -->
+      ${initDebt > 0 && paidAmount > 0 ? `
+        <div class="report-section">
+          <div class="report-section-head">
+            <h3>Progreso</h3>
+          </div>
+          <div class="report-progress-block">
+            <div class="report-progress-top">
+              <span class="report-progress-label-big">Del total inicial</span>
+              <span class="report-progress-pct">${pct.toFixed(0)}%</span>
+            </div>
+            <div class="report-progress-big-bar">
+              <div class="report-progress-big-fill" style="width: ${Math.min(100, pct)}%"></div>
+            </div>
+            <div class="report-progress-sub">
+              De ${fmt(initDebt)} iniciales, has reducido ${fmt(paidAmount)}. Queda ${fmt(currentDebt)}.
+            </div>
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Hitos alcanzados -->
+      ${unlockedList.length > 0 ? `
+        <div class="report-section">
+          <div class="report-section-head">
+            <h3>Hitos alcanzados</h3>
+            <span class="section-count">${unlockedList.length}</span>
+          </div>
+          <div class="report-milestones">
+            ${unlockedList.map(m => `
+              <div class="report-milestone">
+                <div class="report-milestone-dot"></div>
+                <div class="report-milestone-content">
+                  <div class="report-milestone-title">${esc(m.tag)}</div>
+                  <div class="report-milestone-sub">${esc(m.sub)}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Deudas activas -->
+      ${a.length > 0 ? `
+        <div class="report-section">
+          <div class="report-section-head">
+            <h3>Deudas activas</h3>
+            <span class="section-count">${a.length} ${a.length === 1 ? 'activa' : 'activas'}</span>
+          </div>
+          ${a.map(d => {
+            const ccy = debtCcy(d);
+            const init = d.initialBalance || d.balance;
+            const reduction = Math.max(0, init - d.balance);
+            const pctD = init > 0 ? (reduction / init) * 100 : 0;
+            const cat = categoryMeta(d.category || 'other');
+            return `
+              <div class="report-debt">
+                <div class="report-debt-top">
+                  <div>
+                    <div class="report-debt-name">${esc(d.creditor)}</div>
+                    <div class="report-debt-sub">${cat.short} · Tasa ${d.rate}% · Vence día ${d.dueDay}</div>
+                  </div>
+                  <div class="report-debt-amount">${fmt(d.balance, ccy)}</div>
+                </div>
+                ${pctD > 1 ? `
+                  <div class="report-debt-bar">
+                    <div class="report-debt-bar-fill" style="width: ${Math.min(100, pctD)}%"></div>
+                  </div>
+                  <div style="font-size: 11.5px; color: var(--muted); margin-top: 6px;">Has reducido ${pctD.toFixed(0)}% · ${fmt(reduction, ccy)}</div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      ` : ''}
+
+      <!-- Deudas cerradas (timeline) -->
+      ${closedList.length > 0 ? `
+        <div class="report-section">
+          <div class="report-section-head">
+            <h3>Cerradas</h3>
+            <span class="section-count">${closedList.length}</span>
+          </div>
+          <div class="report-timeline">
+            ${closedList.map(d => {
+              const ccy = debtCcy(d);
+              const init = d.initialBalance || 0;
+              const closedOn = d.paidOffAt ? new Date(d.paidOffAt) : null;
+              const cat = categoryMeta(d.category || 'other');
+              return `
+                <div class="report-timeline-item">
+                  <div class="report-timeline-name">${esc(d.creditor)}${init > 0 ? `<span class="report-timeline-amount">${fmt(init, ccy)}</span>` : ''}</div>
+                  <div class="report-timeline-meta">${cat.short} · Cerrada ${closedOn ? 'el ' + fmtDateFull(closedOn) : ''}</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <!-- Nota de privacidad -->
+      <div class="report-note">
+        Este reporte es privado. Queda en tu dispositivo. Nadie más lo verá a menos que tú decidas compartirlo.
+      </div>
+
+      <!-- Acciones (ocultas al imprimir) -->
+      <div class="action-row no-print">
+        <button class="btn" data-print-report>Descargar / imprimir</button>
+        <button class="btn btn-secondary" data-go="dashboard">Volver</button>
+      </div>
+
+      <!-- Pie visible solo al imprimir -->
+      <div class="report-footer">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <div style="color: var(--ink); opacity: 0.7;">
+            ${ordeniLogo('ordeni-logo--sm')}
+          </div>
+          <div>Reporte generado el ${dateStr}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderModal() {
+  if (!state.modal) return '';
+  const m = state.modal;
+
+  // Variante milestone — celebración de hito. Reutiliza .milestone-card como protagonista
+  // y le quita el chrome al modal para que la tarjeta respire.
+  if (m.kind === 'milestone') {
+    return `
+      <div class="modal-backdrop" data-modal-close>
+        <div class="modal milestone-modal" onclick="event.stopPropagation()">
+          <div class="milestone-card">
+            <div class="milestone-tag">${esc(m.tag || '')}</div>
+            <div class="milestone-msg">${esc(m.msg || '')}</div>
+            <div class="milestone-sub">${esc(m.sub || '')}</div>
+          </div>
+          <button class="btn milestone-confirm" data-modal-confirm>Seguir</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // Para listas largas (moneda: 12 opciones), usar un listado compacto con marca de "actual"
+  const useCompactList = m.options && m.options.length > 4;
+  const currentValue = m.kind === 'currency' ? state.profile.currency : (m.kind === 'strategy' ? state.profile.strategy : null);
+  let optionsHtml = '';
+  if (m.options) {
+    if (useCompactList) {
+      optionsHtml = `
+        <div class="modal-option-list">
+          ${m.options.map(o => `<button data-modal-option="${o.value}" class="${o.value === currentValue ? 'current' : ''}">${o.label}</button>`).join('')}
+        </div>
+        <button class="btn-ghost" data-modal-close>Cancelar</button>
+      `;
+    } else {
+      optionsHtml = `
+        <div class="stack">
+          ${m.options.map((o,i) => `<button class="btn ${i === 0 ? '' : 'btn-secondary'}" data-modal-option="${o.value}">${o.label}</button>`).join('')}
+        </div>
+        <button class="btn-ghost mt-sm" data-modal-close>Cancelar</button>
+      `;
+    }
+  }
+  return `
+    <div class="modal-backdrop" data-modal-close>
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title">${m.title}</div>
+        <div class="modal-body">${m.body}</div>
+        ${m.input ? `<div class="field"><input class="field-input" id="modal-input" type="${m.inputType || 'text'}" value="${esc(m.inputValue || '')}" placeholder="${esc(m.placeholder || '')}" ${m.inputType === 'number' ? 'inputmode="numeric"' : ''} autofocus></div>` : ''}
+        ${m.options ? optionsHtml : `
+        <div class="btn-row mt-md">
+          ${m.singleAction ? '' : '<button class="btn btn-secondary" data-modal-close>Cancelar</button>'}
+          <button class="btn ${m.danger ? 'btn-danger' : ''}" data-modal-confirm>${m.confirmText || 'Aceptar'}</button>
+        </div>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+// ============== RENDER ==============
+function render() {
+  const app = document.getElementById('app');
+
+  // Preservar foco + posición del cursor antes del rerender.
+  // Sin esto, cualquier cambio de state.X seguido de render() destruye el input y saca al usuario del campo.
+  const activeEl = document.activeElement;
+  let focusId = null;
+  let selStart = null;
+  let selEnd = null;
+  if (activeEl && activeEl.id && app.contains(activeEl)) {
+    focusId = activeEl.id;
+    // selectionStart/End no está disponible en type="number" ni en selects; lo envolvemos.
+    try { selStart = activeEl.selectionStart; selEnd = activeEl.selectionEnd; } catch (_) { /* no-op */ }
+  }
+
+  let html = '';
+  switch (state.view) {
+    case 'welcome': html = viewWelcome(); break;
+    case 'onboarding': html = viewOnboarding(); break;
+    case 'pin-setup': html = viewPinSetup(); break;
+    case 'pin-lock': html = viewPinLock(); break;
+    case 'first-debt': html = viewFirstDebt(); break;
+    case 'dashboard': html = viewDashboard(); break;
+    case 'add-debt': html = viewAddDebt(); break;
+    case 'plan': html = viewPlan(); break;
+    case 'settings': html = viewSettings(); break;
+    case 'simulator': html = viewSimulator(); break;
+    case 'negotiate': html = viewNegotiate(); break;
+    case 'report': html = viewReport(); break;
+    case 'victory': html = viewVictory(); break;
+    default: html = '<div class="screen"></div>';
+  }
+  app.innerHTML = html + renderModal() + renderPayModal();
+  attachEvents();
+
+  // Restaurar foco: si había un input/select con id enfocado antes, devolverle el foco
+  // y la posición del cursor. Si no, caer al comportamiento original de autofocus.
+  if (focusId) {
+    const restored = document.getElementById(focusId);
+    if (restored) {
+      restored.focus();
+      if (selStart != null) {
+        try { restored.setSelectionRange(selStart, selEnd); } catch (_) { /* tipo no soporta selección */ }
+      }
+    }
+  } else {
+    const firstInput = app.querySelector('input[autofocus]');
+    if (firstInput) setTimeout(() => firstInput.focus(), 60);
+  }
+}
+
+// ============== EVENTS ==============
+function attachEvents() {
+  document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => goTo(el.dataset.go)));
+  const nb = document.querySelector('[data-onb-next]'); if (nb) nb.addEventListener('click', handleOnbNext);
+  const sb = document.querySelector('[data-onb-skip]'); if (sb) sb.addEventListener('click', handleOnbSkip);
+  const bb = document.querySelector('[data-onb-back]'); if (bb) bb.addEventListener('click', handleOnbBack);
+  document.querySelectorAll('[data-pin-choice]').forEach(el => el.addEventListener('click', () => handlePinChoice(el.dataset.pinChoice)));
+  document.querySelectorAll('[data-currency-onb]').forEach(el => el.addEventListener('click', () => handleOnbCurrency(el.dataset.currencyOnb)));
+  document.querySelectorAll('[data-currency-pick]').forEach(el => el.addEventListener('click', () => handleDebtCurrencyPick(el.dataset.currencyPick)));
+  document.querySelectorAll('[data-pin-key]').forEach(el => el.addEventListener('click', () => handlePinKey(el.dataset.pinKey)));
+  const pc = document.querySelector('[data-pin-cancel]'); if (pc) pc.addEventListener('click', handlePinCancel);
+  const form = document.getElementById('debt-form'); if (form) form.addEventListener('submit', handleDebtSubmit);
+  document.querySelectorAll('[data-edit-debt]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // No editar si el click viene de un botón V2 dentro de la tarjeta
+      if (e.target.closest('[data-negotiate-debt], .tip-cta, button')) return;
+      const d = state.debts.find(x => x.id === el.dataset.editDebt);
+      if (d && !d.paidOff) { state.editingDebt = d; goTo('add-debt'); }
+    });
+  });
+  const mp = document.querySelector('[data-mark-paid]'); if (mp) mp.addEventListener('click', () => handleMarkPaid(mp.dataset.markPaid));
+  const dd = document.querySelector('[data-delete-debt]'); if (dd) dd.addEventListener('click', () => handleDeleteDebt(dd.dataset.deleteDebt));
+  const ts = document.querySelector('[data-toggle-strategy]'); if (ts) ts.addEventListener('click', handleStrategyToggle);
+  document.querySelectorAll('[data-setting]').forEach(el => el.addEventListener('click', () => handleSetting(el.dataset.setting)));
+  document.querySelectorAll('[data-modal-close]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target === el || el.hasAttribute('data-modal-close')) {
+        if (e.target === el) { state.modal = null; render(); }
+      }
+    });
+  });
+  const mc = document.querySelector('[data-modal-confirm]'); if (mc) mc.addEventListener('click', handleModalConfirm);
+  document.querySelectorAll('[data-modal-option]').forEach(el => el.addEventListener('click', () => handleModalOption(el.dataset.modalOption)));
+
+  // ========== V2 event bindings ==========
+  document.querySelectorAll('[data-sim-mode]').forEach(el => el.addEventListener('click', () => handleSimMode(el.dataset.simMode)));
+  // Para los inputs del simulador NO llamamos render() — solo updateSimResult().
+  // Esto preserva foco, cursor y teclado virtual (crítico en móvil con type="number").
+  const simExtraInput = document.getElementById('sim-extra-input');
+  if (simExtraInput) simExtraInput.addEventListener('input', (e) => { state.simExtra = parseFloat(e.target.value) || 0; updateSimResult(); });
+  const simLumpInput = document.getElementById('sim-lump-input');
+  if (simLumpInput) simLumpInput.addEventListener('input', (e) => { state.simLumpAmount = parseFloat(e.target.value) || 0; updateSimResult(); });
+  const simLumpTarget = document.getElementById('sim-lump-target');
+  if (simLumpTarget) simLumpTarget.addEventListener('change', (e) => { state.simLumpTarget = e.target.value; updateSimResult(); });
+  const simRateInput = document.getElementById('sim-rate-input');
+  if (simRateInput) simRateInput.addEventListener('input', (e) => { state.simNewRate = parseFloat(e.target.value) || 0; updateSimResult(); });
+  const simRateTarget = document.getElementById('sim-rate-target');
+  if (simRateTarget) simRateTarget.addEventListener('change', (e) => {
+    state.simRateTarget = e.target.value;
+    // Al cambiar deuda objetivo, sugerir nueva tasa 5pp abajo de la actual.
+    // Requerimos full render aquí porque el valor del input de tasa necesita actualizarse.
+    const t = state.debts.find(x => x.id === e.target.value);
+    state.simNewRate = t ? Math.max(0, t.rate - 5) : 0;
+    render();
+  });
+  document.querySelectorAll('[data-neg-script]').forEach(el => el.addEventListener('click', () => { state.negScriptId = el.dataset.negScript; render(); }));
+  document.querySelectorAll('[data-copy-script]').forEach(el => el.addEventListener('click', () => handleCopyScript(el.dataset.copyScript)));
+  document.querySelectorAll('[data-negotiate-debt]').forEach(el => el.addEventListener('click', (e) => { e.stopPropagation(); state.negotiatingDebt = el.dataset.negotiateDebt; state.negScriptId = null; goTo('negotiate'); }));
+  document.querySelectorAll('[data-open-negotiate]').forEach(el => el.addEventListener('click', () => { state.negotiatingDebt = el.dataset.openNegotiate; state.negScriptId = null; goTo('negotiate'); }));
+  document.querySelectorAll('[data-dismiss-tip]').forEach(el => el.addEventListener('click', (e) => { e.stopPropagation(); dismissTip(el.dataset.dismissTip); }));
+  document.querySelectorAll('[data-tip-cta]').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    try {
+      const cta = JSON.parse(el.dataset.tipCta.replace(/&apos;/g, "'"));
+      if (cta.kind === 'simulator') goTo('simulator');
+      else if (cta.kind === 'negotiate' && cta.debtId) { state.negotiatingDebt = cta.debtId; goTo('negotiate'); }
+      else if (cta.kind === 'setting' && cta.setting) { goTo('settings'); setTimeout(() => handleSetting(cta.setting), 100); }
+    } catch (err) { console.error('tip cta', err); }
+  }));
+
+  // Reporte: botón "Descargar / imprimir" → abre el diálogo de impresión nativo
+  // del navegador. El usuario puede elegir "Guardar como PDF" ahí mismo.
+  const pr = document.querySelector('[data-print-report]');
+  if (pr) pr.addEventListener('click', handlePrintReport);
+
+  // ========== V3 event bindings (transaccional) ==========
+  // Banner de urgencia + botón "Ver todas las opciones"
+  document.querySelectorAll('[data-open-pay]').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openPayOptions(el.dataset.openPay);
+  }));
+  // Botones de pago rápido (mínimo / agresivo) → abren modal con monto preset
+  document.querySelectorAll('[data-quick-pay]').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const amt = parseFloat(el.dataset.quickAmount);
+    openPayOptions(el.dataset.quickPay, isNaN(amt) ? undefined : amt);
+  }));
+  // Cerrar modal de pago
+  document.querySelectorAll('[data-paymodal-close]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // Solo cerrar si el click fue en el backdrop o en el botón explícito
+      if (e.target === el || el.tagName === 'BUTTON') { closePayModal(); }
+    });
+  });
+  // Tabs del modal (Pagar / Negociar / Refinanciar)
+  document.querySelectorAll('[data-paymode]').forEach(el => el.addEventListener('click', () => handlePayModalMode(el.dataset.paymode)));
+  // Slider de monto — NO rerender para preservar UX del slider
+  const paySlider = document.getElementById('pay-slider');
+  if (paySlider) paySlider.addEventListener('input', (e) => {
+    const v = parseFloat(e.target.value) || 0;
+    updatePaySliderValue(v);
+  });
+  // Continuar a confirmación
+  const payProceed = document.querySelector('[data-pay-proceed]');
+  if (payProceed) payProceed.addEventListener('click', handlePayProceed);
+  // Volver desde confirmación
+  const payBack = document.querySelector('[data-pay-back]');
+  if (payBack) payBack.addEventListener('click', handlePayBack);
+  // Ejecutar pago
+  const payExec = document.querySelector('[data-pay-execute]');
+  if (payExec) payExec.addEventListener('click', handlePayExecute);
+  // Desde modal: abrir flujo de negociación existente
+  const payNeg = document.querySelector('[data-paymodal-negotiate]');
+  if (payNeg) payNeg.addEventListener('click', () => {
+    const debtId = payNeg.dataset.paymodalNegotiate;
+    closePayModal();
+    state.negotiatingDebt = debtId;
+    state.negScriptId = null;
+    goTo('negotiate');
+  });
+  // Desde modal: abrir simulador para simular refinanciación
+  const payRef = document.querySelector('[data-paymodal-refinance]');
+  if (payRef) payRef.addEventListener('click', () => {
+    const debtId = payRef.dataset.paymodalRefinance;
+    closePayModal();
+    state.simMode = 'rate';
+    state.simRateTarget = debtId;
+    const t = state.debts.find(x => x.id === debtId);
+    state.simNewRate = t ? Math.max(0, t.rate - 10) : 0;
+    goTo('simulator');
+  });
+  // Pantalla de victoria → siguiente pago
+  const vNext = document.querySelector('[data-victory-next]');
+  if (vNext) vNext.addEventListener('click', () => {
+    const nextId = vNext.dataset.victoryNext;
+    state.lastPayment = null;
+    state.view = 'dashboard';
+    openPayOptions(nextId);
+  });
+}
+
+function goTo(view) {
+  if (view === 'onboarding') state.onbStep = 0;
+  if (view === 'dashboard') state.editingDebt = null;
+  if (view === 'add-debt' && !state.editingDebt) state.editingDebt = null;
+  // Al salir del formulario de deuda, limpiar el draft y la selección temporal de moneda
+  if (view !== 'add-debt' && view !== 'first-debt') {
+    state.debtFormDraft = null;
+    state.tempDebtCurrency = null;
+  }
+  state.view = view;
+  state.pinError = false;
+  render();
+  window.scrollTo(0, 0);
+}
+
+function handleOnbNext() {
+  const input = document.getElementById('onb-input');
+  const val = input ? input.value.trim() : '';
+  if (state.onbStep === 0) state.profile.name = val;
+  else if (state.onbStep === 2) state.profile.income = val ? parseFloat(val) : 0;
+  // Paso 1 (moneda) ya se guardó con el click del pill
+  state.onbStep++;
+  // Al pasar de moneda a ingreso, disparar fetch de tasas en background
+  if (state.onbStep === 2) ensureRates().then(() => render());
+  render();
+}
+function handleOnbSkip() { state.onbStep++; render(); }
+function handleOnbBack() {
+  if (state.onbStep > 0) { state.onbStep--; render(); }
+  else { state.view = 'welcome'; render(); }
+}
+
+async function handleOnbCurrency(code) {
+  state.profile.currency = code;
+  await saveAll();
+  // Avanzar automáticamente al siguiente paso
+  state.onbStep++;
+  // Disparar fetch de tasas en background
+  ensureRates().then(() => render());
+  render();
+}
+
+async function handlePinChoice(choice) {
+  if (choice === 'yes') {
+    state.pinInput = ''; state.pinStage = 'enter'; state.tempPin = ''; state.pinError = false;
+    state.view = 'pin-setup'; render();
+  } else {
+    if (!state.profile.createdAt) state.profile.createdAt = Date.now();
+    await saveAll();
+    state.view = 'first-debt'; render();
+  }
+}
+
+function handlePinCancel() {
+  state.pinInput = ''; state.pinStage = 'enter'; state.tempPin = ''; state.pinError = false;
+  if (!state.profile.createdAt) { state.view = 'onboarding'; state.onbStep = 3; }
+  else state.view = 'settings';
+  render();
+}
+
+async function handlePinKey(key) {
+  state.pinError = false;
+  if (state.view === 'pin-setup') {
+    if (key === 'del') { state.pinInput = state.pinInput.slice(0, -1); render(); return; }
+    if (state.pinInput.length < 4) {
+      state.pinInput += key;
+      render();
+      if (state.pinInput.length === 4) {
+        setTimeout(async () => {
+          if (state.pinStage === 'enter') {
+            state.tempPin = state.pinInput; state.pinInput = ''; state.pinStage = 'confirm'; render();
+          } else {
+            if (state.pinInput === state.tempPin) {
+              state.profile.pin = state.tempPin;
+              if (!state.profile.createdAt) state.profile.createdAt = Date.now();
+              state.unlocked = true;
+              await saveAll();
+              state.pinInput = ''; state.tempPin = ''; state.pinStage = 'enter';
+              state.view = state.debts.length === 0 ? 'first-debt' : 'settings';
+              render();
+            } else {
+              state.pinError = true; state.pinInput = ''; state.tempPin = ''; state.pinStage = 'enter';
+              render();
+              setTimeout(() => { state.pinError = false; render(); }, 1600);
+            }
+          }
+        }, 180);
+      }
+    }
+  } else if (state.view === 'pin-lock') {
+    if (key === 'del') { state.pinInput = state.pinInput.slice(0, -1); render(); return; }
+    if (state.pinInput.length < 4) {
+      state.pinInput += key;
+      render();
+      if (state.pinInput.length === 4) {
+        setTimeout(() => {
+          if (state.pinInput === state.profile.pin) {
+            state.unlocked = true; state.pinInput = ''; state.view = 'dashboard'; render();
+          } else {
+            state.pinError = true; state.pinInput = '';
+            render();
+            setTimeout(() => { state.pinError = false; render(); }, 1600);
+          }
+        }, 180);
+      }
+    }
+  }
+}
+
+async function handleDebtSubmit(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const currency = fd.get('currency') || state.profile.currency;
+  const data = {
+    creditor: (fd.get('creditor') || '').trim(),
+    category: fd.get('category') || 'other',
+    balance: parseFloat(fd.get('balance')) || 0,
+    rate: parseFloat(fd.get('rate')) || 0,
+    minPayment: parseFloat(fd.get('minPayment')) || 0,
+    dueDay: parseInt(fd.get('dueDay')) || 1,
+    currency: currency
+  };
+  if (state.editingDebt) {
+    // Proteger initialBalance: si el usuario edita y el nuevo balance SUPERA el initial
+    // (típicamente porque corrige un error de entrada), actualizamos initial.
+    // Si el balance BAJA (pagó algo), initial se queda igual para que el tracking funcione.
+    const currentInitial = state.editingDebt.initialBalance || state.editingDebt.balance || 0;
+    if (data.balance > currentInitial) {
+      data.initialBalance = data.balance;
+    }
+    Object.assign(state.editingDebt, data);
+  } else {
+    state.debts.push({
+      id: uid(),
+      ...data,
+      initialBalance: data.balance,
+      createdAt: Date.now(),
+      paidOff: false
+    });
+  }
+  await saveAll();
+  state.editingDebt = null;
+  state.tempDebtCurrency = null;
+  state.debtFormDraft = null;
+  // Si hay deudas en moneda extranjera, intentar refrescar tasas
+  if (hasMixedCurrencies()) ensureRates();
+  state.view = 'dashboard';
+  render();
+  // Check milestones después del render — si hay un hito nuevo (ej: usuario reportó
+  // un pago que bajó el balance), aparece la milestone-card sobre el dashboard.
+  setTimeout(() => checkMilestones(), 200);
+}
+
+function handleDebtCurrencyPick(code) {
+  // Antes del re-render, capturar los valores que el usuario ya escribió en el formulario.
+  // Sin esto, cambiar de moneda borraría campos como "¿A quién le debes?", saldo, tasa, etc.
+  captureDebtFormState();
+  if (state.editingDebt) {
+    state.editingDebt.currency = code;
+  } else {
+    state.tempDebtCurrency = code;
+  }
+  // Si eligió moneda distinta a la principal, asegurar tasas
+  if (code !== state.profile.currency) ensureRates();
+  render();
+}
+
+// Lee los valores actuales del formulario y los guarda en state antes de un re-render
+// que destruiría el DOM. Para deudas nuevas, lo guarda en state.debtFormDraft.
+// Para edición, actualiza el objeto editingDebt directamente.
+function captureDebtFormState() {
+  const form = document.getElementById('debt-form');
+  if (!form) return;
+  const fd = new FormData(form);
+  const creditor = (fd.get('creditor') || '').trim();
+  const category = fd.get('category') || 'other';
+  const balanceRaw = fd.get('balance') || '';
+  const rateRaw = fd.get('rate') || '';
+  const minPayRaw = fd.get('minPayment') || '';
+  const dueDayRaw = fd.get('dueDay') || '';
+
+  if (state.editingDebt) {
+    // Mutar el objeto que está siendo editado con lo que el usuario ya escribió
+    if (creditor) state.editingDebt.creditor = creditor;
+    state.editingDebt.category = category;
+    const balNum = parseFloat(balanceRaw);
+    if (!isNaN(balNum)) state.editingDebt.balance = balNum;
+    const rNum = parseFloat(rateRaw);
+    if (!isNaN(rNum)) state.editingDebt.rate = rNum;
+    const mNum = parseFloat(minPayRaw);
+    if (!isNaN(mNum)) state.editingDebt.minPayment = mNum;
+    const dNum = parseInt(dueDayRaw);
+    if (!isNaN(dNum)) state.editingDebt.dueDay = dNum;
+  } else {
+    // Deuda nueva: guardar en un draft
+    state.debtFormDraft = {
+      creditor,
+      category,
+      balance: balanceRaw,
+      rate: rateRaw,
+      minPayment: minPayRaw,
+      dueDay: dueDayRaw
+    };
+  }
+}
+
+async function handleMarkPaid(id) {
+  state.modal = {
+    title: 'Cerrar esta deuda',
+    body: '¿Ya la pagaste por completo? Queda archivada como cerrada.',
+    confirmText: 'Sí, está cerrada',
+    onConfirm: async () => {
+      const d = state.debts.find(x => x.id === id);
+      if (d) { d.paidOff = true; d.paidOffAt = Date.now(); d.balance = 0; }
+      await saveAll();
+
+      // Volver al dashboard para que lo que venga (milestone o modal) se vea sobre él
+      state.editingDebt = null;
+      state.view = 'dashboard';
+
+      // Si cerrar esta deuda destapa un hito nuevo, celebramos el hito (más
+      // emocional y específico). Si no, mostramos el modal genérico de "una menos".
+      const earned = earnedMilestones();
+      const unlocked = state.profile.unlockedMilestones || [];
+      const newOnes = earned.filter(mid => !unlocked.includes(mid));
+
+      if (newOnes.length > 0) {
+        state.modal = null;
+        render();
+        setTimeout(() => checkMilestones(), 250);
+      } else {
+        const remaining = active().length;
+        state.modal = {
+          title: 'Una deuda menos',
+          body: remaining === 0
+            ? 'Las cerraste todas. Eso no es poca cosa. Respira.'
+            : `Eso es real. Quedan ${remaining} ${remaining === 1 ? 'deuda' : 'deudas'}. El camino sigue.`,
+          confirmText: 'Continuar',
+          singleAction: true,
+          onConfirm: () => { state.modal = null; render(); }
+        };
+        render();
+      }
+    }
+  };
+  render();
+}
+
+async function handleDeleteDebt(id) {
+  state.modal = {
+    title: 'Eliminar esta deuda',
+    body: 'La borra por completo del registro. Usa "Ya la pagué" si la cerraste — así se preserva el progreso.',
+    confirmText: 'Eliminar',
+    danger: true,
+    onConfirm: async () => {
+      state.debts = state.debts.filter(d => d.id !== id);
+      await saveAll();
+      state.modal = null; state.editingDebt = null; state.view = 'dashboard'; render();
+    }
+  };
+  render();
+}
+
+async function handleStrategyToggle() {
+  const current = currentStrategy();
+  state.profile.strategy = current === 'avalanche' ? 'snowball' : 'avalanche';
+  await saveAll();
+  render();
+}
+
+async function handleSetting(setting) {
+  if (setting === 'name') {
+    state.modal = {
+      title: 'Cambiar nombre',
+      body: 'Puede ser cualquier cosa. Nadie más lo verá.',
+      input: true, inputValue: state.profile.name, placeholder: 'Tu nombre o apodo',
+      onConfirm: async () => {
+        state.profile.name = (document.getElementById('modal-input').value || '').trim();
+        await saveAll(); state.modal = null; render();
+      }
+    };
+  } else if (setting === 'income') {
+    state.modal = {
+      title: 'Ingreso mensual',
+      body: 'Opcional. Solo para calcular proporciones en el plan semanal.',
+      input: true, inputType: 'number', inputValue: state.profile.income || '', placeholder: '2000000',
+      onConfirm: async () => {
+        state.profile.income = parseFloat(document.getElementById('modal-input').value) || 0;
+        await saveAll(); state.modal = null; render();
+      }
+    };
+  } else if (setting === 'pin') {
+    if (state.profile.pin) {
+      state.modal = {
+        title: 'Quitar PIN',
+        body: 'Ya no se pedirá al abrir la app. Puedes volver a activarlo cuando quieras.',
+        confirmText: 'Quitar', danger: true,
+        onConfirm: async () => {
+          state.profile.pin = null; await saveAll(); state.modal = null; render();
+        }
+      };
+    } else {
+      state.pinInput = ''; state.pinStage = 'enter'; state.tempPin = ''; state.pinError = false;
+      state.view = 'pin-setup';
+    }
+  } else if (setting === 'strategy') {
+    state.modal = {
+      kind: 'strategy',
+      title: 'Estrategia de pago',
+      body: 'Cómo priorizar cuando tengas dinero extra.',
+      options: [
+        { value: 'auto', label: 'Automática (recomendada)' },
+        { value: 'avalanche', label: 'Avalancha · tasa más alta primero' },
+        { value: 'snowball', label: 'Bola de nieve · la más pequeña primero' }
+      ]
+    };
+  } else if (setting === 'currency') {
+    state.modal = {
+      kind: 'currency',
+      title: 'Moneda principal',
+      body: 'Todas las sumas totales se muestran aquí. Puedes tener deudas en otras monedas — se convierten automáticamente.',
+      options: Object.keys(CURRENCIES).map(code => ({
+        value: code,
+        label: `${code} · ${CURRENCIES[code].name}`
+      }))
+    };
+  } else if (setting === 'wipe') {
+    state.modal = {
+      title: '¿Borrar todo?',
+      body: 'Todas tus deudas, tu nombre, tu PIN. No hay vuelta atrás.',
+      confirmText: 'Sí, borrar todo', danger: true,
+      onConfirm: async () => {
+        await wipeAll(); state.modal = null; state.view = 'welcome'; render();
+      }
+    };
+  }
+  render();
+}
+
+async function handleModalConfirm() {
+  if (state.modal && state.modal.onConfirm) await state.modal.onConfirm();
+  else { state.modal = null; render(); }
+}
+
+async function handleModalOption(value) {
+  const kind = state.modal ? state.modal.kind : 'strategy';
+  if (kind === 'currency') {
+    state.profile.currency = value;
+    // Si las tasas no existen o son stale, refrescar
+    if (!state.profile.rates) {
+      await fetchRates();
+    }
+  } else {
+    state.profile.strategy = value;
+  }
+  await saveAll();
+  state.modal = null;
+  render();
+}
+
+// =====================================================
+// ============== V3 — LÓGICA TRANSACCIONAL ==============
+// =====================================================
+
+// Día del mes actual → usado para calcular días hasta el próximo vencimiento
+function daysUntilDue(dueDay) {
+  const now = new Date();
+  const today = now.getDate();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  if (dueDay >= today) return dueDay - today;
+  // Ya pasó este mes → siguiente mes
+  return (daysInMonth - today) + Math.min(dueDay, 31);
+}
+
+// Identifica la deuda más urgente (vence en <= 7 días, con interés mensual alto)
+// Retorna null si no hay nada urgente → no mostramos banner
+function getCriticalUpcoming() {
+  const a = active();
+  if (a.length === 0) return null;
+  const scored = a.map(d => {
+    const days = daysUntilDue(d.dueDay || 1);
+    const monthlyInt = balanceInPrimary(d) * (d.rate / 100 / 12);
+    return { debt: d, days, monthlyInt };
+  });
+  // Priorizar por proximidad de vencimiento (<=7 días) y magnitud de intereses
+  scored.sort((a, b) => {
+    if (a.days !== b.days) return a.days - b.days;
+    return b.monthlyInt - a.monthlyInt;
+  });
+  const top = scored[0];
+  // Criterio: mostrar banner si hay algo en <=7 días O si hay alguna deuda con interés mensual > $50k COP equiv
+  if (top.days <= 7) return top;
+  // Fallback: si la deuda con mayor interés mensual cuesta >3% del balance al mes, mostrar banner "sangrado constante"
+  const bleeding = scored.find(x => x.monthlyInt > 0 && (x.monthlyInt / balanceInPrimary(x.debt)) >= 0.025);
+  return bleeding || null;
+}
+
+// Calcula sugerencias de pago para una deuda (en su moneda nativa)
+// - minimum: cuota mínima o 5% del balance (lo que sea mayor, mínimo >0)
+// - aggressive: aprox. 3x la mínima, cap a ~30% del balance para no ser absurdo
+function suggestedPayments(d) {
+  const ccy = debtCcy(d);
+  const meta = currencyMeta(ccy);
+  const balance = d.balance;
+  const minFromDebt = d.minPayment || 0;
+  const minFromBalance = balance * 0.05;
+  let minimum = Math.max(minFromDebt, minFromBalance);
+  // Redondeo amigable según decimales de la moneda
+  minimum = meta.decimals === 0 ? Math.ceil(minimum / 1000) * 1000 : Math.ceil(minimum * 100) / 100;
+  minimum = Math.min(minimum, balance);
+
+  let aggressive = minimum * 3;
+  aggressive = Math.min(aggressive, balance * 0.3, balance);
+  aggressive = meta.decimals === 0 ? Math.ceil(aggressive / 1000) * 1000 : Math.ceil(aggressive * 100) / 100;
+  // Si agresivo ≤ mínimo (deuda muy pequeña), ajustar
+  if (aggressive <= minimum) aggressive = Math.min(balance, minimum * 2);
+  return { minimum, aggressive, currency: ccy };
+}
+
+// Calcula el impacto de un pago: cuánto ahorra en intereses + nuevo balance
+function calculatePayImpact(debt, amount) {
+  const ccy = debtCcy(debt);
+  const newBalance = Math.max(0, debt.balance - amount);
+  const monthlyRate = debt.rate / 100 / 12;
+  // Ahorro aproximado en intereses del primer mes (lo inmediato y tangible)
+  const interestSavedMonth1 = amount * monthlyRate;
+  // Proyección: cuánto ahorraría en 12 meses si mantiene este ritmo de balance reducido
+  const interestSaved12mo = interestSavedMonth1 * 12;
+  // Días de "paz" estimados: amount / monthlyInterestOnBalance
+  const monthlyIntOnBalance = debt.balance * monthlyRate;
+  const daysOfPeace = monthlyIntOnBalance > 0 ? Math.round((amount / monthlyIntOnBalance) * 30) : 30;
+  return {
+    newBalance,
+    interestSavedMonth1,
+    interestSaved12mo,
+    daysOfPeace: Math.max(7, Math.min(365, daysOfPeace)),
+    currency: ccy
+  };
+}
+
+// Abre el modal de opciones de pago para una deuda específica
+function openPayOptions(debtId, presetAmount) {
+  const d = state.debts.find(x => x.id === debtId);
+  if (!d || d.paidOff) return;
+  const sugg = suggestedPayments(d);
+  state.payModal = {
+    debtId,
+    mode: 'pay',              // 'pay' | 'negotiate' | 'refinance'
+    amount: presetAmount != null ? presetAmount : sugg.minimum,
+    step: 'options'            // 'options' → 'confirm'
+  };
+  render();
+}
+
+function closePayModal() {
+  state.payModal = null;
+  render();
+}
+
+// Render del modal de opciones (Sprint 1)
+function renderPayModal() {
+  if (!state.payModal) return '';
+  const pm = state.payModal;
+  const d = state.debts.find(x => x.id === pm.debtId);
+  if (!d) return '';
+
+  if (pm.step === 'confirm') return renderPayConfirmModal(d, pm.amount);
+
+  const sugg = suggestedPayments(d);
+  const ccy = debtCcy(d);
+  const impact = calculatePayImpact(d, pm.amount);
+  const mode = pm.mode || 'pay';
+
+  return `
+    <div class="pay-modal-backdrop" data-paymodal-close>
+      <div class="pay-modal" onclick="event.stopPropagation()">
+        <div class="pay-modal-handle"></div>
+        <div class="pay-modal-head">
+          <div>
+            <div class="pay-modal-title">${esc(d.creditor)}</div>
+            <div class="pay-modal-sub">Saldo actual: ${fmt(d.balance, ccy)} · Tasa ${d.rate}%</div>
+          </div>
+          <button class="pay-modal-close" data-paymodal-close aria-label="Cerrar">×</button>
+        </div>
+
+        <div class="pay-options-tabs" role="tablist">
+          <button class="pay-tab ${mode === 'pay' ? 'active' : ''}" data-paymode="pay">Pagar ahora</button>
+          <button class="pay-tab ${mode === 'negotiate' ? 'active' : ''}" data-paymode="negotiate">Negociar</button>
+          <button class="pay-tab ${mode === 'refinance' ? 'active' : ''}" data-paymode="refinance">Refinanciar</button>
+        </div>
+
+        ${mode === 'pay' ? renderPayModeContent(d, pm.amount, sugg, impact, ccy) : ''}
+        ${mode === 'negotiate' ? renderNegotiateModeContent(d) : ''}
+        ${mode === 'refinance' ? renderRefinanceModeContent(d) : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderPayModeContent(d, amount, sugg, impact, ccy) {
+  const max = d.balance;
+  // Ticks inteligentes para el slider
+  const tick1 = sugg.minimum;
+  const tick2 = sugg.aggressive;
+  const tick3 = max;
+
+  return `
+    <div class="pay-amount-card">
+      <div class="pay-amount-label">Vas a pagar</div>
+      <div class="pay-amount-big" id="pay-amount-display">${fmt(amount, ccy)}</div>
+      <div class="pay-amount-hint">Ajusta deslizando abajo</div>
+
+      <div class="pay-slider-wrap">
+        <input type="range" class="pay-slider" id="pay-slider"
+               min="${Math.max(1, Math.floor(sugg.minimum * 0.5))}"
+               max="${max}"
+               step="${currencyMeta(ccy).decimals === 0 ? 1000 : 1}"
+               value="${amount}">
+        <div class="pay-slider-ticks">
+          <span>Mín ${fmt(tick1, ccy)}</span>
+          <span>Agresivo ${fmt(tick2, ccy)}</span>
+          <span>Todo ${fmt(tick3, ccy)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-impact" id="pay-impact">
+      Con este pago, tu saldo bajará a <strong>${fmt(impact.newBalance, ccy)}</strong>.
+      <div class="pay-impact-grid">
+        <div class="pay-impact-item">
+          <span class="label">Ahorro 1er mes</span>
+          <span class="val">${fmt(impact.interestSavedMonth1, ccy)}</span>
+        </div>
+        <div class="pay-impact-item">
+          <span class="label">Ahorro 12 meses</span>
+          <span class="val">${fmt(impact.interestSaved12mo, ccy)}</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="pay-proceed-btn" data-pay-proceed>Continuar con ${fmt(amount, ccy)} →</button>
+  `;
+}
+
+function renderNegotiateModeContent(d) {
+  return `
+    <div class="pay-amount-card" style="text-align: center; padding: 28px 20px;">
+      <div style="font-size: 40px; margin-bottom: 10px;">☎</div>
+      <div class="pay-amount-big" style="font-size: 22px;">Llama con script</div>
+      <div class="pay-amount-hint" style="max-width: 300px; margin: 8px auto 0;">
+        Usa un guion probado para reducir tu tasa, pedir un descuento por pago único o acordar un plan de cuotas.
+      </div>
+    </div>
+    <div class="pay-impact" style="background: var(--accent-soft);">
+      <strong style="color: var(--accent-deep);">Probabilidad típica de éxito: 40–65%</strong><br>
+      Si tienes al menos 3 meses al día, tu poder de negociación es más alto.
+    </div>
+    <button class="pay-proceed-btn" style="background: var(--accent-deep);" data-paymodal-negotiate="${d.id}">
+      Abrir guion de negociación →
+    </button>
+  `;
+}
+
+function renderRefinanceModeContent(d) {
+  const monthlyInt = d.balance * (d.rate / 100 / 12);
+  const ccy = debtCcy(d);
+  return `
+    <div class="pay-amount-card">
+      <div class="pay-amount-label">Simulación de refinanciación</div>
+      <div class="pay-amount-big" style="font-size: 22px;">Baja tu tasa</div>
+      <div class="pay-amount-hint">
+        Hoy pagas <strong style="color: var(--red);">${fmt(monthlyInt, ccy)}/mes</strong> solo en intereses sobre esta deuda.
+      </div>
+    </div>
+    <div class="pay-impact">
+      Refinanciar a una tasa más baja (por ej. 15–20% anual vs. tu ${d.rate}%) puede reducir tu cuota y acortar el plazo.
+      <div class="pay-impact-grid">
+        <div class="pay-impact-item">
+          <span class="label">Tasa actual</span>
+          <span class="val">${d.rate}%</span>
+        </div>
+        <div class="pay-impact-item">
+          <span class="label">Meta sugerida</span>
+          <span class="val">≤ ${Math.max(0, d.rate - 10).toFixed(1)}%</span>
+        </div>
+      </div>
+    </div>
+    <button class="pay-proceed-btn" data-paymodal-refinance="${d.id}">
+      Ver simulación completa →
+    </button>
+    <button class="victory-secondary" style="display: block; margin: 8px auto 0;" data-paymodal-close>
+      Cerrar
+    </button>
+  `;
+}
+
+// Update del slider SIN rerender (preserva foco/cursor)
+function updatePaySliderValue(newAmount) {
+  if (!state.payModal) return;
+  const d = state.debts.find(x => x.id === state.payModal.debtId);
+  if (!d) return;
+  state.payModal.amount = newAmount;
+  const ccy = debtCcy(d);
+  const impact = calculatePayImpact(d, newAmount);
+  const display = document.getElementById('pay-amount-display');
+  if (display) display.textContent = fmt(newAmount, ccy);
+  const impactDiv = document.getElementById('pay-impact');
+  if (impactDiv) {
+    impactDiv.innerHTML = `
+      Con este pago, tu saldo bajará a <strong>${fmt(impact.newBalance, ccy)}</strong>.
+      <div class="pay-impact-grid">
+        <div class="pay-impact-item">
+          <span class="label">Ahorro 1er mes</span>
+          <span class="val">${fmt(impact.interestSavedMonth1, ccy)}</span>
+        </div>
+        <div class="pay-impact-item">
+          <span class="label">Ahorro 12 meses</span>
+          <span class="val">${fmt(impact.interestSaved12mo, ccy)}</span>
+        </div>
+      </div>
+    `;
+  }
+  const btn = document.querySelector('[data-pay-proceed]');
+  if (btn) btn.textContent = `Continuar con ${fmt(newAmount, ccy)} →`;
+}
+
+// Cambia de modo en el modal (pay / negotiate / refinance)
+function handlePayModalMode(mode) {
+  if (!state.payModal) return;
+  state.payModal.mode = mode;
+  render();
+}
+
+// Avanzar a paso de confirmación
+function handlePayProceed() {
+  if (!state.payModal) return;
+  state.payModal.step = 'confirm';
+  render();
+}
+
+// Modal de confirmación 2-paso (Sprint 2)
+function renderPayConfirmModal(d, amount) {
+  const ccy = debtCcy(d);
+  const impact = calculatePayImpact(d, amount);
+  const newBalancePct = d.balance > 0 ? ((d.balance - amount) / d.balance) * 100 : 0;
+
+  return `
+    <div class="pay-modal-backdrop" data-paymodal-close>
+      <div class="pay-modal" onclick="event.stopPropagation()">
+        <div class="pay-modal-handle"></div>
+        <div class="pay-modal-head">
+          <div>
+            <div class="pay-modal-title">Confirma tu pago</div>
+            <div class="pay-modal-sub">Revisa antes de continuar — este paso es para asegurar que todo esté bien.</div>
+          </div>
+          <button class="pay-modal-close" data-paymodal-close aria-label="Cerrar">×</button>
+        </div>
+
+        <div class="pay-method-pill">
+          <span class="pay-method-pill-dot"></span>
+          Registro manual · Próximamente pago bancario integrado
+        </div>
+
+        <div class="pay-confirm-summary">
+          <div class="pay-confirm-row highlight">
+            <span class="label">Pagas</span>
+            <span class="val">${fmt(amount, ccy)}</span>
+          </div>
+          <div class="pay-confirm-row">
+            <span class="label">A</span>
+            <span class="val" style="font-family: inherit;">${esc(d.creditor)}</span>
+          </div>
+          <div class="pay-confirm-row">
+            <span class="label">Saldo antes</span>
+            <span class="val">${fmt(d.balance, ccy)}</span>
+          </div>
+          <div class="pay-confirm-row">
+            <span class="label">Saldo después</span>
+            <span class="val" style="color: var(--sage-deep);">${fmt(impact.newBalance, ccy)}</span>
+          </div>
+          <div class="pay-confirm-row">
+            <span class="label">Ahorro 12 meses</span>
+            <span class="val" style="color: var(--sage-deep);">${fmt(impact.interestSaved12mo, ccy)}</span>
+          </div>
+        </div>
+
+        <div class="gateway-placeholder">
+          <div class="gateway-placeholder-icon">🔐</div>
+          <div>
+            En el beta registras el pago manualmente (como "ya pagué"). La integración con tu banco llega en las próximas semanas.
+          </div>
+        </div>
+
+        <div class="pay-confirm-buttons">
+          <button class="pay-confirm-cancel" data-pay-back>Volver</button>
+          <button class="pay-proceed-btn" style="margin-top: 0;" data-pay-execute>
+            Registrar pago
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function handlePayBack() {
+  if (!state.payModal) return;
+  state.payModal.step = 'options';
+  render();
+}
+
+// Ejecuta el pago: descuenta del balance, registra en estado, navega a victoria
+async function handlePayExecute() {
+  if (!state.payModal) return;
+  const pm = state.payModal;
+  const d = state.debts.find(x => x.id === pm.debtId);
+  if (!d) { closePayModal(); return; }
+
+  const amountPaid = Math.min(pm.amount, d.balance);
+  const ccy = debtCcy(d);
+  const balanceBefore = d.balance;
+  const newBalance = Math.max(0, d.balance - amountPaid);
+
+  // Actualizar deuda
+  d.balance = newBalance;
+  if (newBalance <= 0) {
+    d.paidOff = true;
+    d.paidOffAt = Date.now();
+  }
+
+  // Registro histórico de pagos (para tracking + métricas)
+  // Se guarda dentro de state.profile → persiste vía saveAll()
+  if (!Array.isArray(state.profile.paymentHistory)) state.profile.paymentHistory = [];
+  state.profile.paymentHistory.push({
+    id: uid(),
+    debtId: d.id,
+    creditor: d.creditor,
+    amount: amountPaid,
+    currency: ccy,
+    balanceBefore,
+    balanceAfter: newBalance,
+    timestamp: Date.now()
+  });
+
+  // Cerrar modal + navegar a victoria
+  state.lastPayment = {
+    debtId: d.id,
+    creditor: d.creditor,
+    amount: amountPaid,
+    currency: ccy,
+    balanceBefore,
+    balanceAfter: newBalance,
+    paidOff: d.paidOff === true
+  };
+  state.payModal = null;
+  state.view = 'victory';
+  await saveAll();
+  render();
+  window.scrollTo(0, 0);
+}
+
+// Pantalla de Victoria (Sprint 2)
+function viewVictory() {
+  const lp = state.lastPayment;
+  if (!lp) { state.view = 'dashboard'; return viewDashboard(); }
+
+  const d = state.debts.find(x => x.id === lp.debtId);
+  const impact = d ? calculatePayImpact({ balance: lp.balanceBefore, rate: d.rate }, lp.amount) : null;
+  const daysOfPeace = impact ? impact.daysOfPeace : 30;
+  const saved12 = impact ? impact.interestSaved12mo : 0;
+
+  // Próximo pago recomendado
+  const a = active();
+  const next = a.length > 0 ? priorityDebt() || a[0] : null;
+  const nextSugg = next ? suggestedPayments(next) : null;
+
+  const celebration = lp.paidOff
+    ? 'Una deuda cerrada. Eso es real.'
+    : `${fmt(lp.amount, lp.currency)} menos en tu deuda.`;
+
+  const bodyText = lp.paidOff
+    ? `Acabas de cerrar tu deuda con ${esc(lp.creditor)}. Respira. No es poca cosa.`
+    : `Tu pago a ${esc(lp.creditor)} quedó registrado. Te compra ${daysOfPeace} días de tranquilidad antes del próximo ciclo de intereses.`;
+
+  return `
+    <div class="victory-screen fade-in">
+      <div class="victory-celebration">
+        <div class="victory-check">✓</div>
+      </div>
+
+      <div class="victory-eyebrow">Pago registrado</div>
+      <div class="victory-title">${celebration}</div>
+      ${!lp.paidOff ? `<div class="victory-amount">${fmt(lp.amount, lp.currency)}</div>` : ''}
+      <div class="victory-body">${bodyText}</div>
+
+      ${!lp.paidOff && impact ? `
+        <div class="victory-stats">
+          <div class="victory-stat">
+            <span class="label">Nuevo saldo</span>
+            <span class="val">${fmt(lp.balanceAfter, lp.currency)}</span>
+          </div>
+          <div class="victory-stat">
+            <span class="label">Ahorro 12 meses</span>
+            <span class="val" style="color: var(--sage-deep);">${fmt(saved12, lp.currency)}</span>
+          </div>
+        </div>
+      ` : ''}
+
+      ${next && next.id !== lp.debtId && nextSugg ? `
+        <div class="victory-next">
+          <div class="victory-next-label">Próximo movimiento recomendado</div>
+          <div class="victory-next-body">
+            <strong>${esc(next.creditor)}</strong> — pago mínimo sugerido de <strong>${fmt(nextSugg.minimum, debtCcy(next))}</strong>.
+            Es la deuda con mayor impacto pendiente.
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="victory-actions">
+        ${next && nextSugg && next.id !== lp.debtId ? `
+          <button class="victory-primary" data-victory-next="${next.id}">Pagar siguiente: ${esc(next.creditor)}</button>
+        ` : ''}
+        <button class="${next && nextSugg && next.id !== lp.debtId ? 'victory-secondary' : 'victory-primary'}" data-go="dashboard">
+          Volver al panel
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// Helpers para inyectar el banner + quick actions en el dashboard
+function renderUrgencyBanner() {
+  const crit = getCriticalUpcoming();
+  if (!crit) return '';
+  const { debt, days, monthlyInt } = crit;
+  const ccy = debtCcy(debt);
+
+  let title, body;
+  if (days <= 7) {
+    title = days === 0
+      ? `Pago crítico HOY · ${esc(debt.creditor)}`
+      : days === 1
+        ? `Pago crítico mañana · ${esc(debt.creditor)}`
+        : `Pago crítico en ${days} días · ${esc(debt.creditor)}`;
+    body = `Si no pagas ahora, se agregarán <strong>${fmt(monthlyInt, ccy)}</strong> en intereses el próximo mes. Actuar hoy te ahorra ese dinero.`;
+  } else {
+    title = `${esc(debt.creditor)} te está sangrando`;
+    body = `Esta deuda te cuesta <strong>${fmt(monthlyInt, ccy)}/mes</strong> solo en intereses. Cada mes que pasa sin pagar, se va ese dinero.`;
+  }
+
+  return `
+    <div class="urgency-banner">
+      <div class="urgency-head">
+        <span class="urgency-dot"></span>
+        <span>Atención</span>
+      </div>
+      <div class="urgency-title">${title}</div>
+      <div class="urgency-body">${body}</div>
+      <button class="urgency-cta" data-open-pay="${debt.id}">
+        Actuar ahora →
+      </button>
+    </div>
+  `;
+}
+
+function renderQuickActions() {
+  const crit = getCriticalUpcoming();
+  // Usa la deuda crítica si existe; si no, la prioritaria; si no, la primera activa
+  const target = crit ? crit.debt : (priorityDebt() || active()[0]);
+  if (!target) return '';
+  const sugg = suggestedPayments(target);
+  const ccy = debtCcy(target);
+
+  return `
+    <div class="section-heading" style="margin-top: 4px; margin-bottom: 12px;">
+      <h3>Acciones rápidas</h3>
+      <span class="section-count">${esc(target.creditor)}</span>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-action primary" data-quick-pay="${target.id}" data-quick-amount="${sugg.minimum}">
+        <div class="qa-label">Pago mínimo</div>
+        <div class="qa-amount">${fmt(sugg.minimum, ccy)}</div>
+        <div class="qa-sub">Mantienes al día sin sobregirar</div>
+      </button>
+      <button class="quick-action" data-quick-pay="${target.id}" data-quick-amount="${sugg.aggressive}">
+        <div class="qa-label">Pago agresivo</div>
+        <div class="qa-amount">${fmt(sugg.aggressive, ccy)}</div>
+        <div class="qa-sub">Bajas saldo y ahorras interés</div>
+      </button>
+      <button class="quick-action full" data-open-pay="${target.id}">
+        <span class="qa-full-label">Ver todas las opciones · ajustar monto, negociar, refinanciar</span>
+        <span class="qa-full-arrow">→</span>
+      </button>
+    </div>
+  `;
+}
+
+// ============== V2 HANDLERS ==============
+function handleSimMode(mode) {
+  state.simMode = mode;
+  // Reset inputs al cambiar de modo para evitar arrastrar valores
+  if (mode === 'extra') state.simExtra = state.simExtra || 0;
+  if (mode === 'lumpSum') {
+    state.simLumpAmount = state.simLumpAmount || 0;
+    if (!state.simLumpTarget) {
+      const p = priorityDebt();
+      state.simLumpTarget = p ? p.id : (active()[0] && active()[0].id);
+    }
+  }
+  if (mode === 'rate') {
+    if (!state.simRateTarget) {
+      const p = priorityDebt();
+      state.simRateTarget = p ? p.id : (active()[0] && active()[0].id);
+    }
+    if (state.simNewRate === undefined) {
+      const t = state.debts.find(x => x.id === state.simRateTarget);
+      state.simNewRate = t ? Math.max(0, t.rate - 5) : 0;
+    }
+  }
+  render();
+}
+
+async function handleCopyScript(scriptId) {
+  const d = state.debts.find(x => x.id === state.negotiatingDebt);
+  if (!d) return;
+  const scripts = generateScripts(d);
+  const s = scripts.find(x => x.id === scriptId);
+  if (!s) return;
+  try {
+    await navigator.clipboard.writeText(s.body);
+    showToast('Guion copiado al portapapeles');
+  } catch (e) {
+    // Fallback para navegadores sin clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = s.body;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Guion copiado'); } catch (_) { showToast('No se pudo copiar — copia manual'); }
+    document.body.removeChild(ta);
+  }
+}
+
+function handlePrintReport() {
+  // Guardar el título original para restaurarlo después de imprimir.
+  // El título es lo que aparece como nombre sugerido cuando el usuario elige
+  // "Guardar como PDF" en el diálogo — queremos algo útil como "ORDENI_juan_2026-04-19".
+  const prevTitle = document.title;
+  const name = state.profile.name || 'reporte';
+  const dateStr = new Date().toISOString().slice(0, 10);
+  document.title = `ORDENI_${name.replace(/[^a-z0-9]/gi, '_')}_${dateStr}`;
+  window.print();
+  // Restaurar tras el print (window.print es sincrónico en la mayoría de browsers)
+  setTimeout(() => { document.title = prevTitle; }, 500);
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.className = 'toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._hideTimer);
+  t._hideTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ============== INIT ==============
+async function init() {
+  await loadAll();
+
+  // Silent initialization de milestones:
+  // Si el usuario ya tiene cuenta pero nunca se le setearon unlockedMilestones
+  // (viene de una versión anterior del app), marcamos silenciosamente los hitos
+  // que ya había cruzado. Así la próxima vez sólo se celebran los NUEVOS.
+  if (state.profile.createdAt && !state.profile.unlockedMilestones) {
+    state.profile.unlockedMilestones = earnedMilestones();
+    await saveAll();
+  }
+
+  // Disparar fetch de tasas en background (no bloquea render inicial)
+  if (state.profile.createdAt) {
+    ensureRates().then((ok) => {
+      if (ok && hasMixedCurrencies()) render();
+    });
+  }
+  if (!state.profile.createdAt) state.view = 'welcome';
+  else if (state.profile.pin) state.view = 'pin-lock';
+  else { state.unlocked = true; state.view = 'dashboard'; }
+  render();
+}
+
+// Keyboard for PIN
+document.addEventListener('keydown', (e) => {
+  if (state.view !== 'pin-setup' && state.view !== 'pin-lock') return;
+  if (/^[0-9]$/.test(e.key)) { handlePinKey(e.key); e.preventDefault(); }
+  else if (e.key === 'Backspace') { handlePinKey('del'); e.preventDefault(); }
+});
+
+init();
+</script>
+</body>
+</html>
